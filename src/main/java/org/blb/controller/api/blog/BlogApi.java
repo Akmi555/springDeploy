@@ -28,7 +28,7 @@ public interface BlogApi {
 
     })
 
-    @PutMapping()
+    @PostMapping()
     ResponseEntity<StandardResponseDto> addBlog(@RequestBody @Valid BlogAddRequestDTO dto);
 
     @Operation(summary = "Deleting blog", description = "The operation is available to owner of the blog or admin")
@@ -60,7 +60,7 @@ public interface BlogApi {
                             examples = @ExampleObject(value = "{\"message\": \"Blog not found\"}")))
     })
 
-    @PostMapping()
+    @PutMapping()
     ResponseEntity<StandardResponseDto> updateBlog(@RequestBody @Valid BlogUpdateDTO dto);
 
     @Operation(summary = "Adding new blog comment", description = "The operation is available to registered user, add new comment")
@@ -74,7 +74,7 @@ public interface BlogApi {
 
     })
 
-    @PutMapping("/comment")
+    @PostMapping("/comment")
 
     ResponseEntity<StandardResponseDto> addComment(@RequestBody @Valid BlogCommentRequestDTO dto);
 
