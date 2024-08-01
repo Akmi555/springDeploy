@@ -147,7 +147,7 @@
     <!-- Create region table -->
     <changeSet id="create-table-region" author="EkaterinaB">
         <createTable tableName="region">
-            <column name="id" type="BIGSERIAL">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="region_name" type="VARCHAR(255)">
@@ -159,10 +159,10 @@
     <!-- Create news table -->
     <changeSet id="create-table-news" author="EkaterinaB">
         <createTable tableName="news">
-            <column name="id" type="BIGSERIAL">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="region_id" type="BIGSERIAL">
+            <column name="region_id" type="bigint">
             </column>
             <column name="section_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -320,7 +320,7 @@
     <!-- Create advertising table -->
     <changeSet id="create-table-advertising" author="vitalii-chaplygin">
         <createTable tableName="advertising">
-            <column name="id" type="BIGSERIAL">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="title" type="VARCHAR(255)">
