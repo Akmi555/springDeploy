@@ -179,7 +179,7 @@
             <column name="title_image_wide" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="content" type="longtext">
+            <column name="content" type="TEXT">
                 <constraints nullable="false"/>
             </column>
             <column name="comments_count" type="INTEGER">
@@ -370,3 +370,7 @@
             <column name="description_of_the_coupon" value="description text"/>
         </insert>
     </changeSet>
+
+
+
+</databaseChangeLog>
