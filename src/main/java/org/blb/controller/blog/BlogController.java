@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class BlogController implements BlogApi {
     private final BlogDataService blogDataService;
     private final BlogUpdateService blogUpdateService;
-    private final DataSourceTransactionManagerAutoConfiguration dataSourceTransactionManagerAutoConfiguration;
-    private final BlogCommentRepository blogCommentRepository;
     private final BlogCommentService blogCommentService;
 
     @Override
