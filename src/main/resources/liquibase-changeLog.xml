@@ -13,7 +13,7 @@
             <column name="role" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-    </createTable>
+        </createTable>
     </changeSet>
 
     <changeSet id="insert.default.roles" author="developer">
@@ -26,7 +26,7 @@
     </changeSet>
 
 
-     <changeSet id="create.table.user" author="developer">
+    <changeSet id="create.table.user" author="developer">
         <createTable tableName="user">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -54,7 +54,7 @@
         <addForeignKeyConstraint baseTableName="user" baseColumnNames="role_id" constraintName="fk_user_role_id"
                                  referencedTableName="role"
                                  referencedColumnNames="id"/>
-        </changeSet>
+    </changeSet>
 
     <changeSet id="insert.default.user" author="developer">
         <insert tableName="user">
@@ -147,7 +147,7 @@
     <!-- Create region table -->
     <changeSet id="create-table-region" author="EkaterinaB">
         <createTable tableName="region">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="region_name" type="VARCHAR(255)">
@@ -159,10 +159,10 @@
     <!-- Create news table -->
     <changeSet id="create-table-news" author="EkaterinaB">
         <createTable tableName="news">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="region_id" type="bigint">
+            <column name="region_id" type="BIGSERIAL">
             </column>
             <column name="section_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -179,7 +179,7 @@
             <column name="title_image_wide" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="content" type="TEXT">
+            <column name="content" type="longtext">
                 <constraints nullable="false"/>
             </column>
             <column name="comments_count" type="INTEGER">
@@ -320,7 +320,7 @@
     <!-- Create advertising table -->
     <changeSet id="create-table-advertising" author="vitalii-chaplygin">
         <createTable tableName="advertising">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="title" type="VARCHAR(255)">
@@ -370,7 +370,3 @@
             <column name="description_of_the_coupon" value="description text"/>
         </insert>
     </changeSet>
-
-
-
-</databaseChangeLog>

@@ -27,7 +27,7 @@ public class NewsDataEntity {
     private String titleImageSquare;
     private String titleImageWide;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "LONGTEXT")
     private String content;
 
     @Column(nullable = false)

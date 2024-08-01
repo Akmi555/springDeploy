@@ -33,7 +33,6 @@ public class AddNewsDataService {
 
             if (newsDate.compareTo(lastDate) > 0) {
                 NewsDataEntity newsDataEntity = newsDataConverter.fromFetchApiToEntity(fetchNewsDataDTO);
-
                 newsDataRepository.save(newsDataEntity);
             }
         }
