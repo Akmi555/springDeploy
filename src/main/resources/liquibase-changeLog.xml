@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="create.table.role" author="developer">
+        <createTable tableName="role">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints  primaryKey="true" nullable="false"/>
+            </column>
+            <column name="role" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+    </createTable>
+    </changeSet>
+
+    <changeSet id="insert.default.roles" author="developer">
+        <insert tableName="role">
+            <column name="role" value="ADMIN"/>
+        </insert>
+        <insert tableName="role">
+            <column name="role" value="USER"/>
+        </insert>
+    </changeSet>
+
+
+     <changeSet id="create.table.user" author="developer">
+        <createTable tableName="user">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar (255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar (255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar (255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="role_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="varchar (255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="user" baseColumnNames="role_id" constraintName="fk_user_role_id"
+                                 referencedTableName="role"
+                                 referencedColumnNames="id"/>
+        </changeSet>
+
+    <changeSet id="insert.default.user" author="developer">
+        <insert tableName="user">
+            <column name="name" value="Administrator"/>
+            <column name="password" value="$2a$10$mISx06jsPFcUokNLGacWqeJjG4fHud4RlgIzIfd9dxpbpEO0iJ33i"/>
+            <column name="email" value="admin@company.com"/>
+            <column name="role_id" value="1"/>
+            <column name="state" value="1"/>
+            <column name="code" value=""/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="create.table.category" author="ak">
+        <createTable tableName="category">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create.table.product" author="ak">
+        <createTable tableName="product">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_in_stock" type="boolean">
+                <constraints nullable="true"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="product"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_product_user_id"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="add_fk_to_product" author="ak">
+        <addForeignKeyConstraint
+                baseTableName="product"
+                baseColumnNames="category_id"
+                constraintName="FK_product_category"
+                referencedTableName="category"
+                referencedColumnNames="id"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="insert.data.category" author="author2">
+        <insert tableName="category">
+            <column name="name" value="Electronics"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="name" value="Books"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="name" value="Vehicles"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="name" value="Suits"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="name" value="Equipment"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="name" value="Others"/>
+        </insert>
+    </changeSet>
+
+    <!-- Create region table -->
+    <changeSet id="create-table-region" author="EkaterinaB">
+        <createTable tableName="region">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="region_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create news table -->
+    <changeSet id="create-table-news" author="EkaterinaB">
+        <createTable tableName="news">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="region_id" type="bigint">
+            </column>
+            <column name="section_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title_image_square" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title_image_wide" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comments_count" type="INTEGER">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Add foreign key constraint to news table -->
+    <changeSet id="add-foreign-key-news-region" author="EkaterinaB">
+        <addForeignKeyConstraint baseTableName="news"
+                                 baseColumnNames="region_id"
+                                 referencedTableName="region"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_news_region"/>
+    </changeSet>
+
+    <!-- Insert initial data into region table -->
+    <changeSet id="insert-initial-data-region" author="EkaterinaB">
+        <insert tableName="region">
+            <column name="region_name" value="non-region"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Baden-Württemberg"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Bayern"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Berlin"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Brandenburg"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Bremen"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Hamburg"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Hessen"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Mecklenburg-Vorpommern"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Niedersachsen"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Nordrhein-Westfalen"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Rheinland-Pfalz"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Saarland"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Sachsen"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Sachsen-Anhalt"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Schleswig-Holstein"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Thüringen"/>
+        </insert>
+        <insert tableName="region">
+            <column name="region_name" value="Deutschland"/>
+        </insert>
+    </changeSet>
+
+
+
+    <changeSet id="add_region_id_column" author="your_name">
+        <addColumn tableName="product">
+            <column name="region_id" type="BIGINT"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add_description_column" author="ak">
+        <addColumn tableName="product">
+            <column name="description" type="varchar(500)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="modify_region_id_column" author="ak">
+        <!-- Убедитесь, что столбец уже существует, если нет - добавьте его в отдельном changeSet -->
+        <modifyDataType tableName="product" columnName="region_id" newDataType="bigint"/>
+        <dropNotNullConstraint tableName="product" columnName="region_id" columnDataType="bigint"/>
+    </changeSet>
+
+
+    <changeSet id="insert.data.product" author="ak">
+        <insert tableName="product">
+            <column name="name" value="Laptop"/>
+            <column name="category_id" value="1"/>
+            <column name="price" value="999.99"/>
+            <column name="is_in_stock" value="1"/>
+            <column name="user_id" value="1"/><!-- Administrator -->
+            <column name="region_id" value="6"/>
+            <column name="description" value="just new"/>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="All about Laptop"/>
+            <column name="category_id" value="2"/>
+            <column name="price" value="99"/>
+            <column name="is_in_stock" value="1"/>
+            <column name="user_id" value="1"/>
+            <column name="region_id" value="6"/>
+            <column name="description" value="new"/>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Phone"/>
+            <column name="category_id" value="1"/>
+            <column name="price" value="800.5"/>
+            <column name="is_in_stock" value="1"/>
+            <column name="user_id" value="1"/>
+            <column name="region_id" value="2"/>
+            <column name="description" value="not new"/>
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Phone One"/>
+            <column name="category_id" value="1"/>
+            <column name="price" value="900.5"/>
+            <column name="is_in_stock" value="1"/>
+            <column name="user_id" value="1"/>
+            <column name="region_id" value="3"/>
+            <column name="description" value="new..."/>
+        </insert>
+    </changeSet>
+
+
+    <!-- Create advertising table -->
+    <changeSet id="create-table-advertising" author="vitalii-chaplygin">
+        <createTable tableName="advertising">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="advertiser_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="advertiser_email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="advertiser_phone" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="discount" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="advertising_counter" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description_of_the_coupon" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="insert-initial-advertising" author="vitalii-chaplygin">
+        <insert tableName="advertising">
+            <column name="title" value="Our Main Advertisement"/>
+            <column name="description" value="advertisement content"/>
+            <column name="advertiser_name" value="Our Company"/>
+            <column name="advertiser_email" value="advertising@gmail.com"/>
+            <column name="advertiser_phone" value="+1111111111111"/>
+            <column name="discount" value="10%"/>
+            <column name="create_date" value="2024-07-28"/>
+            <column name="end_date" value="2024-12-31"/>
+            <column name="advertising_counter" value="100"/>
+            <column name="description_of_the_coupon" value="description text"/>
+        </insert>
+    </changeSet>
+
+
+
+</databaseChangeLog>
