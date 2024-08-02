@@ -8,7 +8,7 @@
     <changeSet id="create.table.role" author="developer">
         <createTable tableName="role">
             <column name="id" type="bigint" autoIncrement="true">
-                <constraints  primaryKey="true" nullable="false"/>
+                <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="role" type="varchar(255)">
                 <constraints nullable="false"/>
@@ -55,8 +55,7 @@
                                  referencedTableName="role"
                                  referencedColumnNames="id"/>
     </changeSet>
-
-    <changeSet id="insert.default.user" author="developer">
+ <changeSet id="insert.default.user" author="developer">
         <insert tableName="user">
             <column name="name" value="Administrator"/>
             <column name="password" value="$2a$10$mISx06jsPFcUokNLGacWqeJjG4fHud4RlgIzIfd9dxpbpEO0iJ33i"/>
@@ -77,47 +76,6 @@
             </column>
         </createTable>
     </changeSet>
-
-    <changeSet id="create.table.product" author="ak">
-        <createTable tableName="product">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="name" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="category_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="price" type="decimal(10,2)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="is_in_stock" type="boolean">
-                <constraints nullable="true"/>
-            </column>
-            <column name="user_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addForeignKeyConstraint baseTableName="product"
-                                 baseColumnNames="user_id"
-                                 constraintName="fk_product_user_id"
-                                 referencedTableName="user"
-                                 referencedColumnNames="id"/>
-    </changeSet>
-
-    <changeSet id="add_fk_to_product" author="ak">
-        <addForeignKeyConstraint
-                baseTableName="product"
-                baseColumnNames="category_id"
-                constraintName="FK_product_category"
-                referencedTableName="category"
-                referencedColumnNames="id"
-                onDelete="CASCADE"
-                onUpdate="CASCADE"/>
-    </changeSet>
-
     <changeSet id="insert.data.category" author="author2">
         <insert tableName="category">
             <column name="name" value="Electronics"/>
@@ -154,46 +112,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-
-    <!-- Create news table -->
-    <changeSet id="create-table-news" author="EkaterinaB">
-        <createTable tableName="news">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="region_id" type="bigint">
-            </column>
-            <column name="section_name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="title" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="date" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="title_image_square" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="title_image_wide" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="content" type="TEXT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="comments_count" type="INTEGER">
-            </column>
-        </createTable>
-    </changeSet>
-
-    <!-- Add foreign key constraint to news table -->
-    <changeSet id="add-foreign-key-news-region" author="EkaterinaB">
-        <addForeignKeyConstraint baseTableName="news"
-                                 baseColumnNames="region_id"
-                                 referencedTableName="region"
-                                 referencedColumnNames="id"
-                                 constraintName="fk_news_region"/>
     </changeSet>
 
     <!-- Insert initial data into region table -->
@@ -255,7 +173,6 @@
     </changeSet>
 
 
-
     <changeSet id="add_region_id_column" author="your_name">
         <addColumn tableName="product">
             <column name="region_id" type="BIGINT"/>
@@ -274,46 +191,6 @@
         <!-- Убедитесь, что столбец уже существует, если нет - добавьте его в отдельном changeSet -->
         <modifyDataType tableName="product" columnName="region_id" newDataType="bigint"/>
         <dropNotNullConstraint tableName="product" columnName="region_id" columnDataType="bigint"/>
-    </changeSet>
-
-
-    <changeSet id="insert.data.product" author="ak">
-        <insert tableName="product">
-            <column name="name" value="Laptop"/>
-            <column name="category_id" value="1"/>
-            <column name="price" value="999.99"/>
-            <column name="is_in_stock" value="1"/>
-            <column name="user_id" value="1"/><!-- Administrator -->
-            <column name="region_id" value="6"/>
-            <column name="description" value="just new"/>
-        </insert>
-        <insert tableName="product">
-            <column name="name" value="All about Laptop"/>
-            <column name="category_id" value="2"/>
-            <column name="price" value="99"/>
-            <column name="is_in_stock" value="1"/>
-            <column name="user_id" value="1"/>
-            <column name="region_id" value="6"/>
-            <column name="description" value="new"/>
-        </insert>
-        <insert tableName="product">
-            <column name="name" value="Phone"/>
-            <column name="category_id" value="1"/>
-            <column name="price" value="800.5"/>
-            <column name="is_in_stock" value="1"/>
-            <column name="user_id" value="1"/>
-            <column name="region_id" value="2"/>
-            <column name="description" value="not new"/>
-        </insert>
-        <insert tableName="product">
-            <column name="name" value="Phone One"/>
-            <column name="category_id" value="1"/>
-            <column name="price" value="900.5"/>
-            <column name="is_in_stock" value="1"/>
-            <column name="user_id" value="1"/>
-            <column name="region_id" value="3"/>
-            <column name="description" value="new..."/>
-        </insert>
     </changeSet>
 
 
@@ -370,7 +247,6 @@
             <column name="description_of_the_coupon" value="description text"/>
         </insert>
     </changeSet>
-
 
 
 </databaseChangeLog>
