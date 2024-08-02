@@ -1,10 +1,9 @@
 package org.blb.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.blb.DTO.appDTO.OneMessageDTO;
 import org.blb.DTO.appDTO.StandardResponseDto;
 import org.blb.DTO.user.UserNewDTO;
-import org.blb.controller.api.AuthApi;
+import org.blb.controller.api.user.AuthApi;
 import org.blb.security.dto.AuthRequest;
 import org.blb.security.dto.AuthResponse;
 import org.blb.service.user.UserAuthService;

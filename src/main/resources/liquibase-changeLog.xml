@@ -171,29 +171,6 @@
             <column name="region_name" value="Deutschland"/>
         </insert>
     </changeSet>
-
-
-    <changeSet id="add_region_id_column" author="your_name">
-        <addColumn tableName="product">
-            <column name="region_id" type="BIGINT"/>
-        </addColumn>
-    </changeSet>
-
-    <changeSet id="add_description_column" author="ak">
-        <addColumn tableName="product">
-            <column name="description" type="varchar(500)">
-                <constraints nullable="true"/>
-            </column>
-        </addColumn>
-    </changeSet>
-
-    <changeSet id="modify_region_id_column" author="ak">
-        <!-- Убедитесь, что столбец уже существует, если нет - добавьте его в отдельном changeSet -->
-        <modifyDataType tableName="product" columnName="region_id" newDataType="bigint"/>
-        <dropNotNullConstraint tableName="product" columnName="region_id" columnDataType="bigint"/>
-    </changeSet>
-
-
     <!-- Create advertising table -->
     <changeSet id="create-table-advertising" author="vitalii-chaplygin">
         <createTable tableName="advertising">
@@ -247,6 +224,7 @@
             <column name="description_of_the_coupon" value="description text"/>
         </insert>
     </changeSet>
+
 
 
 </databaseChangeLog>

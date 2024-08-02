@@ -1,4 +1,4 @@
-package org.blb.controller.api;
+package org.blb.controller.api.user;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.blb.DTO.appDTO.ResponseErrors;
+import org.blb.DTO.blog.blogs.BlogsResponseDTO;
 import org.blb.DTO.user.UserNewDTO;
 import org.blb.security.dto.AuthRequest;
 import org.blb.security.dto.AuthResponse;
@@ -23,7 +24,7 @@ public interface AuthApi {
     @ApiResponses( value = {
             @ApiResponse(responseCode = "200", description ="User token",
                     content = @Content(mediaType = "application/json",
-                            examples = @ExampleObject(value = "{\" token\": \"Some combinations of letters\"}"))),
+                            schema = @Schema(implementation = AuthResponse.class))),
 
     })
     @PostMapping("/auth")
@@ -37,7 +38,7 @@ public interface AuthApi {
             @ApiResponse(responseCode = "400", description = "Validation Error",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseErrors.class))),
-            @ApiResponse(responseCode = "409", description = "User already exist",
+            @ApiResponse(responseCode = "400", description = "User already exist",
                     content = @Content(mediaType = "application/json",
                             examples = @ExampleObject(value = "{\"message\": \"User already exists\"}"))),
                 })

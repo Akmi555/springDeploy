@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public interface BlogApi {
     @Operation(summary = "Adding new blog", description = "The operation is available to registered user, add new blog")
     @ApiResponses( value = {
-            @ApiResponse(responseCode = "200", description ="Information about blog adding",
+            @ApiResponse(responseCode = "201", description ="Information about blog adding",
                     content = @Content(mediaType = "application/json",
                             examples = @ExampleObject(value = "{ \"message\": \"Blog added successfully\"}"))),
             @ApiResponse(responseCode = "404", description = "Region with ID = .. not found",
