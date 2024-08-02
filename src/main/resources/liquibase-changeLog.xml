@@ -55,8 +55,7 @@
                                  referencedTableName="role"
                                  referencedColumnNames="id"/>
     </changeSet>
-
-    <changeSet id="insert.default.user" author="developer">
+ <changeSet id="insert.default.user" author="developer">
         <insert tableName="user">
             <column name="name" value="Administrator"/>
             <column name="password" value="$2a$10$mISx06jsPFcUokNLGacWqeJjG4fHud4RlgIzIfd9dxpbpEO0iJ33i"/>
