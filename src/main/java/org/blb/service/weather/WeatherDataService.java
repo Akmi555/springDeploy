@@ -32,21 +32,30 @@ public class WeatherDataService implements WeatherDataServiceInterface{
         Optional<WeatherDataEntity> optEntity = getFromDatabase(dto.getLat(), dto.getLon());
 
         if (optEntity.isPresent()){
-            WeatherDataEntity weatherDataEntity = optEntity.get();
-            LocalDateTime createdTime = weatherDataEntity.getTimeCreate();
+            WeatherDataEntity existingEntity = optEntity.get();
+            LocalDateTime createdTime = existingEntity.getTimeCreate();
 
-            long duration = Duration.between(LocalDateTime.now(), createdTime).toMinutes();
+            long duration = Duration.between(createdTime, LocalDateTime.now()).toMinutes();
 
+            // If the latest data is less than 10 minutes old, return it
             if (duration < 10) {
-                return weatherConverter.fromEntityToDto(weatherDataEntity);
+                return weatherConverter.fromEntityToDto(existingEntity);
             }
         }
+        // Fetch new data from API and update existing data
+        WeatherDataResponseDto response = getFromApi(dto.getLat(), dto.getLon());
+        WeatherDataEntity updatedEntity = weatherConverter.fromDtoToEntity(response);
 
-    WeatherDataResponseDto response = getFromApi(dto.getLat(), dto.getLon());
-    repository.save(weatherConverter.fromDtoToEntity(response));
+        // Update the existing entity with new data
+        if (optEntity.isPresent()){
+            WeatherDataEntity existingEntity = optEntity.get();
+            updateEntity(existingEntity, updatedEntity);
+            repository.save(existingEntity);
+        }else {
+            repository.save(updatedEntity);
+        }
         return response;
     }
-
 
     private Optional<WeatherDataEntity> getFromDatabase(String lat, String lon){
         return repository.findByLatitudeAndLongitude(lat,lon);
@@ -59,5 +68,20 @@ public class WeatherDataService implements WeatherDataServiceInterface{
 
     private WeatherLatLonDTO getLatLonFromGeoLocation(String ipAddress) throws MalformedURLException, URISyntaxException {
         return outGeoLocationApi.getLatLonFromGeoLocation(ipAddress);
+    }
+
+    private void updateEntity(WeatherDataEntity existingEntity, WeatherDataEntity newEntity) {
+        existingEntity.setLatitude(newEntity.getLatitude());
+        existingEntity.setLongitude(newEntity.getLongitude());
+        existingEntity.setCityName(newEntity.getCityName());
+        existingEntity.setTemperature(newEntity.getTemperature());
+        existingEntity.setAppTemperature(newEntity.getAppTemperature());
+        existingEntity.setIcon(newEntity.getIcon());
+        existingEntity.setDescription(newEntity.getDescription());
+        existingEntity.setHumidity(newEntity.getHumidity());
+        existingEntity.setWindCdir(newEntity.getWindCdir());
+        existingEntity.setWindCdirFull(newEntity.getWindCdirFull());
+        existingEntity.setWindSpd(newEntity.getWindSpd());
+        existingEntity.setTimeCreate(newEntity.getTimeCreate());
     }
 }
