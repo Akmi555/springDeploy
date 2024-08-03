@@ -87,21 +87,21 @@ public interface FindProductControllerApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Product found",
                     content = @Content(mediaType = "application/json",
-                            examples = @ExampleObject(value = "{\n" +
-                                    "    \"name\": \"SUP\",\n" +
-                                    "    \"category\": {\n" +
-                                    "        \"name\": \"Vehicles\"\n" +
-                                    "    },\n" +
-                                    "    \"price\": 30.0,\n" +
-                                    "    \"description\": \"A high quality SUP suitable for a good time.\",\n" +
-                                    "    \"region\": {\n" +
-                                    "        \"regionName\": \"Bremen\"\n" +
-                                    "    },\n" +
-                                    "    \"isInStock\": true,\n" +
-                                    "    \"owner\": {\n" +
-                                    "        \"name\": \"john\"\n" +
-                                    "    }\n" +
-                                    "}"))),
+                            examples = @ExampleObject(value = "     {\n" +
+                                    "            \"imageUrl\": \"https://ifiwjdganyiodnmwtdlr.supabase.co/storage/v1/object/public/some_bucket/some_link.jpg\",\n" +
+                                    "            \"name\": \"SUP\",\n" +
+                                    "            \"category\": {\n" +
+                                    "                \"name\": \"Vehicles\"\n" +
+                                    "            },\n" +
+                                    "            \"price\": 30.0,\n" +
+                                    "            \"description\": \"A high quality SUP suitable for a good time.\",\n" +
+                                    "            \"region\": {\n" +
+                                    "                \"regionName\": \"Bremen\"\n" +
+                                    "            },\n" +
+                                    "            \"owner\": {\n" +
+                                    "                \"name\": \"some_owner\"\n" +
+                                    "            }\n" +
+                                    "        }"))),
             @ApiResponse(responseCode = "404", description = "Product not found",
                     content = @Content(mediaType = "application/json",
                             examples = @ExampleObject(value = "{\n" +

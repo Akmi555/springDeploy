@@ -19,7 +19,7 @@ public interface DeleteProductControllerApi {
 
     @Operation(summary = "Delete a product by ID", description = "Deletes a product from the catalog by its ID.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Product successfully deleted",
+            @ApiResponse(responseCode = "200", description = "Product successfully deleted",
                     content = @Content(mediaType = "application/json",
                             examples = @ExampleObject(value = "{ \"message\": \"Product successfully deleted\"}"))),
             @ApiResponse(responseCode = "404", description = "Product not found with the given ID",

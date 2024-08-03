@@ -20,7 +20,7 @@ public interface UpdateProductControllerApi {
 
     @Operation(summary = "Update a product by ID",
             description = "Updates an existing product identified by its ID. " +
-                    "Note: The fields `category` and `region` will be ignored.")
+                    "Note: The fields `imageUrl` , `category` and `region` will be ignored.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Product successfully updated",

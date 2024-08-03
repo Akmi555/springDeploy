@@ -12,17 +12,32 @@ import org.blb.DTO.rent.categoryDto.CategoryCreateRequestDto;
 import org.blb.DTO.rent.productDto.ProductCreateRequestDto;
 import org.blb.DTO.validationErrorDto.ValidationErrorsDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
 @RequestMapping("/rent")
 public interface AddProductControllerApi {
 
-    @Operation(summary = "Add new product", description = "The operation is available to registered users to add a new product.")
+    @Operation(summary = "Add new product with image", description = "The operation is available to registered users to add a new product with an image.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Product successfully created",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = "{ \"message\": \"Product successfully created\"}"))),
+            @ApiResponse(responseCode = "400", description = "Invalid JSON format or error during product creation",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = "{ \"message\": \"Invalid JSON format or error during product creation: ...\"}"))),
+            @ApiResponse(responseCode = "500", description = "An unexpected error occurred",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = "{ \"message\": \"An unexpected error occurred. Please try again later.\" }")))
+    })
+    @PostMapping(consumes = "multipart/form-data")
+    ResponseEntity<?> addNewProduct(
+            @RequestPart("product") String productJson,
+            @RequestPart(required = false, value = "image") MultipartFile image);
+
+    @Operation(summary = "Add new product", description = "The operation is available to registered users to add a new product without an image.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Product successfully created",
                     content = @Content(mediaType = "application/json",
@@ -45,7 +60,7 @@ public interface AddProductControllerApi {
                     content = @Content(mediaType = "application/json",
                             examples = @ExampleObject(value = "{ \"message\": \"An unexpected error occurred. Please try again later.\" }")))
     })
-    @PostMapping
+    @PostMapping(consumes = "application/json")
     ResponseEntity<?> addNewProduct(@RequestBody ProductCreateRequestDto request);
 }
 

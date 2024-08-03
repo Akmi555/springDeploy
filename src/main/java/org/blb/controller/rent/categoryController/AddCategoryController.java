@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class AddCategoryController implements AddCategoryControllerApi {
 
-  private final AddCategoryService addCategoryService;
+    private final AddCategoryService addCategoryService;
 
     @PostMapping
     public ResponseEntity<?> addCategory(@Valid @RequestBody CategoryCreateRequestDto requestDto) {

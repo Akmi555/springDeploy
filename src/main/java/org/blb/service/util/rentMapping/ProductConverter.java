@@ -55,6 +55,12 @@ public class ProductConverter {
         ProductResponseDto productResponseDto = new ProductResponseDto();
         UserJustWithNameDto userDto = new UserJustWithNameDto(product.getUser().getName());
 
+        productResponseDto.setId(product.getId());
+
+        if(product.getLink() != null){
+            productResponseDto.setImageUrl(product.getLink());
+        }
+
         if(product.getName() != null){
             productResponseDto.setName(product.getName());
         }
@@ -65,9 +71,6 @@ public class ProductConverter {
         if(product.getPrice() != null){
             productResponseDto.setPrice(product.getPrice());
         }
-        //if(product.getIsInStock() != null){
-         //   productResponseDto.setIsInStock(product.getIsInStock());
-        //}
 
         if(product.getDescription() != null){
             productResponseDto.setDescription(product.getDescription());
@@ -75,13 +78,11 @@ public class ProductConverter {
 
         if (product.getRegion() != null) {
             RegionJustWithNameDto regionDto = new RegionJustWithNameDto(product.getRegion().getRegionName());
-           // RegionDTO regionDto = new RegionDTO(product.getRegion().getRegionName());
             productResponseDto.setRegion(regionDto);
         }
         if(product.getUser() !=null){
             productResponseDto.setOwner(userDto);
         }
-
         return productResponseDto;
     }
 }
