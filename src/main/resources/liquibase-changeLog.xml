@@ -225,6 +225,35 @@
         </insert>
     </changeSet>
 
+    <!-- Create news section table -->
+    <changeSet id="create-table-section" author="EkaterinaB">
+        <createTable tableName="section">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="section_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 
+    <!-- Insert initial data into section table -->
+    <changeSet id="insert-initial-data-section" author="EkaterinaB">
+        <insert tableName="section">
+            <column name="section_name" value="inland"/>
+        </insert>
+        <insert tableName="section">
+            <column name="section_name" value="ausland"/>
+        </insert>
+        <insert tableName="section">
+            <column name="section_name" value="wirtschaft"/>
+        </insert>
+        <insert tableName="section">
+            <column name="section_name" value="sport"/>
+        </insert>
+        <insert tableName="section">
+            <column name="section_name" value="wissen"/>
+        </insert>
+    </changeSet>
 
 </databaseChangeLog>
