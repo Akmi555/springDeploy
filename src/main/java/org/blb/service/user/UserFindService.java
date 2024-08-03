@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 public class UserFindService {
     private final RoleRepository roleRepository;
-    UserRepository repository;
+    private final UserRepository repository;
 
     public UserFindService(UserRepository repository, RoleRepository roleRepository) {
         this.repository = repository;
