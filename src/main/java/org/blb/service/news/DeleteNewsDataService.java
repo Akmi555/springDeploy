@@ -15,8 +15,8 @@ public class DeleteNewsDataService {
     public StandardResponseDto deleteNewsDataById(Long newsId) {
         if (newsDataRepository.existsById(newsId)) {
             newsDataRepository.deleteById(newsId);
-            return new StandardResponseDto("News with ID = "+ newsId +" deleted successfully");
-        }else {
+            return new StandardResponseDto("News with ID = " + newsId + " deleted successfully");
+        } else {
             throw new RestException(HttpStatus.NOT_FOUND, "News with ID = " + newsId + " not found");
         }
     }
