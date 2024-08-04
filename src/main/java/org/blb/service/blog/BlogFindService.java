@@ -17,6 +17,7 @@ import org.blb.service.user.UserFindService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -62,9 +63,10 @@ public class BlogFindService {
     public ContentResponseDTO getContent(Long id) {
        Blog blog = blogRepository.findById(id).orElseThrow(
                 () ->new NotFoundException("Blog with id " + id +" not found" ));
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return new ContentResponseDTO(blog.getTitle(), blog.getPublishedDate(),
                 blog.getViews(), blog.getAuthor().getName(),
                 blog.getRegion().getRegionName(), blog.getContent(),
-                blCmFindService.getCommentsOfBlog(blog));
+                blog.getAuthor().getEmail().equals(email),blCmFindService.getCommentsOfBlog(blog));
     }
 }

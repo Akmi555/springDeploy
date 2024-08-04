@@ -22,6 +22,8 @@ public class ContentResponseDTO {
     private String regionName;
     @Schema(description = "content of a blog", example = "some content")
     private String content;
+    @Schema(description = "Check if the blog published by current user", example = "true")
+    private Boolean isPublishedByCurrentUser;
 
     List<BlogCommentResponseDTO> comments;
 }
