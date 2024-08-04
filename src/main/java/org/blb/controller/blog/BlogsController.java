@@ -17,6 +17,13 @@ public class BlogsController implements BlogsApi {
     public ResponseEntity<BlogsResponseDTO> getBlogs(Integer page, Long region) {
         return ResponseEntity.ok(blogFindService.findAll(new BlogsRequestDTO(page,region), 10));
     }
+
+    @Override
+    public ResponseEntity<BlogsResponseDTO> getBlogsByUser(Integer page) {
+        return ResponseEntity.ok(blogFindService
+                .findAllByUser(page,10));
+    }
+
     @Override
     public ResponseEntity<ContentResponseDTO> getBlog(Long id) {
         return ResponseEntity.ok(blogFindService.getContent(id));

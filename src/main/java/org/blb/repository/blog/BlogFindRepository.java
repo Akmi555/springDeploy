@@ -11,8 +11,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface BlogFindRepository extends PagingAndSortingRepository<Blog, Long> {
 
     Page<BlogResponseDTO> findDTOByRegionOrderByIdDesc(Region region, Pageable pageable);
-    Page<BlogResponseDTO> findDTOByRegionAndAuthorOrderByIdDesc(Region region,
-                                                                Pageable pageable, User user);
     Page<BlogResponseDTO> findAllByOrderByIdDesc(Pageable pageable);
     Page<BlogResponseDTO> findAllByAuthorOrderByIdDesc(Pageable pageable, User user);
  }
