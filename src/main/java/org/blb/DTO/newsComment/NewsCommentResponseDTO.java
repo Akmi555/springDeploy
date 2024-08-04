@@ -26,4 +26,7 @@ public class NewsCommentResponseDTO {
 
     @Schema(description = "Author`s name", example = "Tom")
     private String authorName;
+
+    @Schema(description = "Is comment published by current user", example = "true")
+    Boolean isPublishedByCurrentUser;
 }

@@ -23,59 +23,98 @@ public class UpdateNewsDataService {
 
     @Transactional
     public void updateReaction(NewsDataRequestDto dto) {
-        NewsDataEntity newsData = findNewsDataService.getNewsById(dto.getNewsId());
         User user = userFindService.getUserFromContext();
+        NewsDataEntity newsData = findNewsDataService.getNewsById(dto.getNewsId());
 
-        // Fetch or create a new reaction
+        // Получить или создать новую реакцию
         NewsReaction reaction = newsReactionRepository.findByNewsDataAndUser(newsData, user)
                 .orElse(new NewsReaction());
 
+        int likeChange = 0;
+        int dislikeChange = 0;
+
+        if (dto.getLiked() && dto.getDisliked()) {
+            if (reaction.getId() == null || (!reaction.getLiked() && !reaction.getDisliked())) {
+                throw new RestException(HttpStatus.CONFLICT, "Cannot like and dislike the news simultaneously");
+            }
+        }
+
         if (reaction.getId() == null) {
+            // Новая реакция
             reaction.setNewsData(newsData);
             reaction.setUser(user);
-        }
-
-        // Prevent simultaneous like and dislike
-        if ((dto.getLiked() != null && dto.getLiked()) && (dto.getDisliked() != null && dto.getDisliked())) {
-            throw new RestException(HttpStatus.CONFLICT, "Cannot like and dislike the news simultaneously");
-        }
-
-        // Check if the action is redundant
-        if (dto.getLiked() != null && dto.getLiked() && reaction.getLiked() != null && reaction.getLiked()) {
-            throw new RestException(HttpStatus.CONFLICT, "News already liked by this user");
-        }
-
-        if (dto.getDisliked() != null && dto.getDisliked() && reaction.getDisliked() != null && reaction.getDisliked()) {
-            throw new RestException(HttpStatus.CONFLICT, "News already disliked by this user");
-        }
-
-        // Adjust counts based on changes
-        boolean isLikedChanged = dto.getLiked() != null && !dto.getLiked().equals(reaction.getLiked());
-        boolean isDislikedChanged = dto.getDisliked() != null && !dto.getDisliked().equals(reaction.getDisliked());
-
-        if (isLikedChanged) {
-            if (dto.getLiked()) {
-                // Increment like count if setting a new like
-                newsData.setLikeCount(newsData.getLikeCount() + 1);
-            } else if (reaction.getLiked() != null && reaction.getLiked()) {
-                // Decrement like count if removing a like
-                newsData.setLikeCount(newsData.getLikeCount() - 1);
-            }
             reaction.setLiked(dto.getLiked());
-        }
-
-        if (isDislikedChanged) {
-            if (dto.getDisliked()) {
-                // Increment dislike count if setting a new dislike
-                newsData.setDislikeCount(newsData.getDislikeCount() + 1);
-            } else if (reaction.getDisliked() != null && reaction.getDisliked()) {
-                // Decrement dislike count if removing a dislike
-                newsData.setDislikeCount(newsData.getDislikeCount() - 1);
-            }
             reaction.setDisliked(dto.getDisliked());
+            if (dto.getLiked()) {
+                likeChange = 1;
+            }
+            if (dto.getDisliked()) {
+                dislikeChange = 1;
+            }
+        } else {
+            // Существующая реакция
+            if (dto.getLiked() && dto.getDisliked()) {
+                if (reaction.getLiked()) {
+                    // Сценарий 1: новость уже лайкнута, лайк убирается, дизлайк добавляется
+                    likeChange = -1;
+                    dislikeChange = 1;
+                    reaction.setLiked(false);
+                    reaction.setDisliked(true);
+                } else if (reaction.getDisliked()) {
+                    // Сценарий 2: новость уже дизлайкнута, дизлайк убирается, лайк добавляется
+                    likeChange = 1;
+                    dislikeChange = -1;
+                    reaction.setLiked(true);
+                    reaction.setDisliked(false);
+                } else {
+                    // Если новость не лайкнута и не дизлайкнута, устанавливаем значения из dto
+                    reaction.setLiked(dto.getLiked());
+                    reaction.setDisliked(dto.getDisliked());
+                    if (dto.getLiked()) {
+                        likeChange = 1;
+                    }
+                    if (dto.getDisliked()) {
+                        dislikeChange = 1;
+                    }
+                }
+            } else {
+                if (dto.getLiked() && reaction.getLiked()) {
+                    throw new RestException(HttpStatus.CONFLICT, "News already liked by this user");
+                }
+                if (dto.getDisliked() && reaction.getDisliked()) {
+                    throw new RestException(HttpStatus.CONFLICT, "News already disliked by this user");
+                }
+                if (dto.getLiked()) {
+                    if (reaction.getDisliked()) {
+                        reaction.setDisliked(false);
+                        dislikeChange = -1;
+                    }
+                    reaction.setLiked(true);
+                    likeChange = 1;
+                } else if (dto.getDisliked()) {
+                    if (reaction.getLiked()) {
+                        reaction.setLiked(false);
+                        likeChange = -1;
+                    }
+                    reaction.setDisliked(true);
+                    dislikeChange = 1;
+                } else {
+                    // Отмена существующей реакции
+                    if (reaction.getLiked()) {
+                        reaction.setLiked(false);
+                        likeChange = -1;
+                    } else if (reaction.getDisliked()) {
+                        reaction.setDisliked(false);
+                        dislikeChange = -1;
+                    }
+                }
+            }
         }
 
-        // Save the updated reaction and news data
+        newsData.setLikeCount(newsData.getLikeCount() + likeChange);
+        newsData.setDislikeCount(newsData.getDislikeCount() + dislikeChange);
+
+        // Сохранить обновленную реакцию и данные о новости
         newsReactionRepository.save(reaction);
         newsDataRepository.save(newsData);
     }

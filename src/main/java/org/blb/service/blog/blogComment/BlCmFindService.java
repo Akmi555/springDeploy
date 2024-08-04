@@ -7,6 +7,7 @@ import org.blb.repository.blog.BlogCommentRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -15,9 +16,10 @@ public class BlCmFindService {
     private final BlogCommentRepository blogCommentRepository;
     public List<BlogCommentResponseDTO> getCommentsOfBlog(Blog blog) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return blogCommentRepository.findAllByBlog(blog).stream()
                 .map(comment -> new BlogCommentResponseDTO(comment.getId(), comment.getComment(),
-                        comment.getCommentDate(), comment.getUser().getName()
+                        comment.getCommentDate().format(formatter), comment.getUser().getName()
                         ,email.equals(comment.getUser().getEmail())
                 )).toList();
     }

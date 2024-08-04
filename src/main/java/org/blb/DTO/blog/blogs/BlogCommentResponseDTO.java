@@ -20,8 +20,9 @@ public class BlogCommentResponseDTO
     @Schema(description = "text of the comment", example = "You blog is good")
     private String comment;
 
-    @Schema(description = "date of comment publishing", example = "20024-07-25 15:30")
-    private LocalDateTime commentDate;
+    @Schema(description = "date of comment pu" +
+            "blishing", example = "20024-07-25 15:30")
+    private String commentDate;
 
     @Schema(description = "Author`s name", example = "Tom")
     String authorName;

@@ -20,14 +20,13 @@ public class FindNewsCommentService {
 
     public ResponseEntity<List<NewsCommentResponseDTO>> findAll() {
         List<NewsComment> allNewsComments = newsCommentRepository.findAll();
+        if (allNewsComments.isEmpty()) {
+            throw new RestException(HttpStatus.NOT_FOUND, "Comments are not found");
+        }
         List<NewsCommentResponseDTO> DTOs = allNewsComments.stream()
                 .map(newsCommentConverter::toDto)
                 .toList();
-        if (!allNewsComments.isEmpty()) {
-            return new ResponseEntity<>(DTOs, HttpStatus.OK);
-        }else {
-            throw new RestException(HttpStatus.NOT_FOUND, "Comments are not found");
-        }
+        return new ResponseEntity<>(DTOs, HttpStatus.OK);
     }
 
     public ResponseEntity<NewsCommentResponseDTO> findById(Long id) {
@@ -40,14 +39,13 @@ public class FindNewsCommentService {
 
     public ResponseEntity<List<NewsCommentResponseDTO>> findAllCommentsByNewsId(Long newsId) {
         List<NewsComment> allCommentsForNewsId = newsCommentRepository.findAllByNewsDataEntityId(newsId);
+        if (allCommentsForNewsId.isEmpty()) {
+            throw new RestException(HttpStatus.NOT_FOUND, "Comments for news with ID = " + newsId + " are not found");
+        }
         List<NewsCommentResponseDTO> DTOs = allCommentsForNewsId.stream()
                 .map(newsCommentConverter::toDto)
                 .toList();
-        if (!allCommentsForNewsId.isEmpty()) {
-            return new ResponseEntity<>(DTOs, HttpStatus.OK);
-        }else {
-            throw new RestException(HttpStatus.NOT_FOUND, "Comments for news with ID = "+ newsId +" are not found");
-        }
+        return new ResponseEntity<>(DTOs, HttpStatus.OK);
     }
 }
 
