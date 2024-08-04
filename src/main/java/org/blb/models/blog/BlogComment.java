@@ -23,12 +23,14 @@ public class BlogComment {
 
     private LocalDateTime commentDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinColumn(name="author_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinColumn(name="blog_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Blog blog;
 
     public BlogComment(String comment, User user, Blog blog) {

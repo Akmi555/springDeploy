@@ -51,7 +51,7 @@ public class MainPageService {
                 .map(item -> new MpNewsResponse(item.getId(), item.getRegion().getRegionName(),
                         item.getSectionName(), item.getTitle(), item.getDate().substring(0, 10), item.getTitleImageSquare(),
                         item.getLikeCount(), item.getDislikeCount(), item.getCommentsCount())).toList();
-        List<BlogResponseDTO> blogs = blogFindService.findAll(new BlogsRequestDTO(0, (long) 0, false), 3).getBlogs();
+        List<BlogResponseDTO> blogs = blogFindService.findAll(new BlogsRequestDTO(0, (long) 0), 3).getBlogs();
 
         List<MpRentResponse> rent = productRepository
                 .findAll(PageRequest.of(0, 6,

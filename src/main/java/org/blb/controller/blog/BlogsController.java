@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class BlogsController implements BlogsApi {
     private final BlogFindService blogFindService;
     @Override
-    public ResponseEntity<BlogsResponseDTO> getBlogs(Integer page, Long region, Boolean user) {
-        return ResponseEntity.ok(blogFindService.findAll(new BlogsRequestDTO(page,region, user), 10));
+    public ResponseEntity<BlogsResponseDTO> getBlogs(Integer page, Long region) {
+        return ResponseEntity.ok(blogFindService.findAll(new BlogsRequestDTO(page,region), 10));
     }
     @Override
     public ResponseEntity<ContentResponseDTO> getBlog(Long id) {
