@@ -10,6 +10,7 @@ import org.blb.models.user.Role;
 import org.blb.models.user.User;
 import org.blb.repository.user.RoleRepository;
 import org.blb.repository.blog.BlogRepository;
+import org.blb.service.blog.blogComment.BlogCommentService;
 import org.blb.service.region.FindRegionService;
 import org.blb.service.user.UserFindService;
 import org.springframework.http.HttpStatus;
@@ -23,10 +24,12 @@ public class BlogUpdateService {
     private final RoleRepository roleRepository;
     private final BlogRepository blogRepository;
     private final FindRegionService findRegionService;
+    private final BlogCommentService blogCommentService;
 
 
     public void remove(StandardDelRequest dto) {
         Blog blog = getBlogForUpdate(dto.getId());
+        blogCommentService.removeByBlog(blog);
         blogRepository.deleteById(blog.getId());
     }
 
