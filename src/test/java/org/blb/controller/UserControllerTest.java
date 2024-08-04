@@ -90,21 +90,21 @@ public class UserControllerTest {
 
     }
 
-//    @Test
-//    void testUserRegister() throws Exception {
-//        String requestJson = """
-//                {
-//                "name":"newuser",
-//                "email":"user3@test.com",
-//                    "password":"Qwerty1!"}
-//                """;
-//        mockMvc.perform(post("/user/registration")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(requestJson))
-//                .andExpect(status().isCreated())
-//                .andExpect(jsonPath("$.message").value("Confirmation sanded to your email"));
-//
-//    }
+    @Test
+    void testUserRegister() throws Exception {
+        String requestJson = """
+                {
+                "name":"newuser",
+                "email":"user3@test.com",
+                    "password":"Qwerty1!"}
+                """;
+        mockMvc.perform(post("/user/registration")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.message").value("Confirmation sanded to your email"));
+
+    }
 
     @Test
     void testUserRegisterWhenUserEmailAlreadyExist() throws Exception {

@@ -46,7 +46,7 @@ public class BlogUpdateService {
         Blog blog = blogFindService.findById(id);
         Role role = roleRepository.findByRole("ADMIN");
         if (user != blog.getAuthor() && user.getRole() != role){
-            throw new RestException(HttpStatus.CONFLICT, "You dont have permission to dell this message");
+            throw new RestException(HttpStatus.CONFLICT, "You dont have permission to update this blog");
         }
         return blog;
     }

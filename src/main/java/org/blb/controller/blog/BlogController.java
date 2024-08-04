@@ -45,7 +45,9 @@ public class BlogController implements BlogApi {
     @Override
     public ResponseEntity<StandardResponseDto> addComment(BlogCommentRequestDTO dto) {
         blogCommentService.addComment(dto);
-        return ResponseEntity.ok(new StandardResponseDto("Comment added successfully"));
+        return  ResponseEntity.status(HttpStatus.CREATED)
+                .body(new StandardResponseDto("Comment added successfully"));
+
     }
 
     @Override

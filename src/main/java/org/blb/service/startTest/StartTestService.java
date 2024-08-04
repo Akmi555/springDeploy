@@ -3,12 +3,14 @@ package org.blb.service.startTest;
 import lombok.AllArgsConstructor;
 import org.blb.DTO.blog.BlogAddRequestDTO;
 import org.blb.models.blog.Blog;
+import org.blb.models.blog.BlogComment;
 import org.blb.models.region.Region;
 import org.blb.models.rent.Category;
 import org.blb.models.rent.Product;
 import org.blb.models.user.Role;
 import org.blb.models.user.State;
 import org.blb.models.user.User;
+import org.blb.repository.blog.BlogCommentRepository;
 import org.blb.repository.blog.BlogRepository;
 import org.blb.repository.rent.CategoryRepository;
 import org.blb.repository.rent.ProductRepository;
@@ -29,6 +31,9 @@ public class StartTestService {
     private final FindRegionService findRegionService;
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+
+    private final BlogCommentRepository blogCommentRepository;
+
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -75,6 +80,7 @@ public class StartTestService {
             Blog blog = dto.dtoToBlog(user, region);
             blogRepository.save(blog);
 
+
             Category category = categories.get(i % categories.size());
             System.out.println(category);
             Product product = new Product("Verkaufe Tisch", category, (double)i*10, true);
@@ -92,6 +98,7 @@ public class StartTestService {
             }
 
             System.out.println(productRepository.save(product));
+
         }
     }
 
