@@ -29,7 +29,7 @@ public class FindNewsController implements FindNewsApi {
     }
     @Override
     @GetMapping("/findBy")
-    public ResponseEntity<NewsDataPageResponseDto> findByCriteria(@RequestParam Integer page, @RequestParam String section, @RequestParam String region) {
+    public ResponseEntity<NewsDataPageResponseDto> findByCriteria(@RequestParam Integer page, @RequestParam(required = false) String section, @RequestParam(required = false) String region) {
         ResponseEntity<NewsDataPageResponseDto> response = findNewsDataService.findAllNewsByCriteria(section, region, page);
         return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
     }
