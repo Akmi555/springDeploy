@@ -38,7 +38,7 @@ public interface BlogApi {
                             examples = @ExampleObject(value = "{ \"message\": \"Blog removed successfully\"}"))),
             @ApiResponse(responseCode = "409", description = "Only author can dell blog",
                     content = @Content(mediaType = "application/json",
-                            examples = @ExampleObject(value = "{\"message\": \"You dont have permission to dell this blog\"}"))),
+                            examples = @ExampleObject(value = "{\"message\": \"You dont have permission to update this blog\"}"))),
             @ApiResponse(responseCode = "404", description = "Region with ID = .. not found",
                     content = @Content(mediaType = "application/json",
                             examples = @ExampleObject(value = "{\"message\": \"Blog not found\"}")))
@@ -65,7 +65,7 @@ public interface BlogApi {
 
     @Operation(summary = "Adding new blog comment", description = "The operation is available to registered user, add new comment")
     @ApiResponses( value = {
-            @ApiResponse(responseCode = "200", description ="Information comment blog adding",
+            @ApiResponse(responseCode = "201", description ="Information comment blog adding",
                     content = @Content(mediaType = "application/json",
                             examples = @ExampleObject(value = "{ \"message\": \"Comment added successfully\"}"))),
             @ApiResponse(responseCode = "404", description = "Blog not found",

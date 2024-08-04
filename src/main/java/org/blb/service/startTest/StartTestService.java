@@ -3,10 +3,12 @@ package org.blb.service.startTest;
 import lombok.AllArgsConstructor;
 import org.blb.DTO.blog.BlogAddRequestDTO;
 import org.blb.models.blog.Blog;
+import org.blb.models.blog.BlogComment;
 import org.blb.models.region.Region;
 import org.blb.models.rent.Category;
 import org.blb.models.rent.Product;
 import org.blb.models.user.User;
+import org.blb.repository.blog.BlogCommentRepository;
 import org.blb.repository.blog.BlogRepository;
 import org.blb.repository.rent.CategoryRepository;
 import org.blb.repository.rent.ProductRepository;
@@ -22,7 +24,7 @@ public class StartTestService {
     private final FindRegionService findRegionService;
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
-
+    private final BlogCommentRepository blogCommentRepository;
     public void startBlog() {
         for (int i = 0; i < 20; i++) {
             int reg = 2;
@@ -42,13 +44,10 @@ public class StartTestService {
             Blog blog = dto.dtoToBlog(user, region);
             blogRepository.save(blog);
             Category category = categoryRepository.findById((long)1).get();
-            System.out.println(category);
             Product product = new Product("Verkaufe Tish", category, (double)i*10, true);
-            System.out.println(product);
             product.setUser(user);
             product.setRegion(region);
-            System.out.println(product);
-            System.out.println(productRepository.save(product));
+            blogCommentRepository.save(new BlogComment("some commen", user, blog));
         }
     }
 
