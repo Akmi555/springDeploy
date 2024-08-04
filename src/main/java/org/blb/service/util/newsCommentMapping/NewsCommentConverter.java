@@ -3,6 +3,7 @@ package org.blb.service.util.newsCommentMapping;
 import lombok.AllArgsConstructor;
 import org.blb.DTO.newsComment.NewsCommentResponseDTO;
 import org.blb.models.news.NewsComment;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Service;
 public class NewsCommentConverter {
 
     public NewsCommentResponseDTO toDto(NewsComment newsComment) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        String commentAuthorEmail = newsComment.getUser() != null ? newsComment.getUser().getEmail() : "";
+
         NewsCommentResponseDTO dto = new NewsCommentResponseDTO();
 
         dto.setId(newsComment.getId());
@@ -29,6 +33,8 @@ public class NewsCommentConverter {
         if (newsComment.getUser()!= null) {
             dto.setAuthorName(newsComment.getUser().getName());
         }
+
+        dto.setIsPublishedByCurrentUser(email.equals(commentAuthorEmail));
         return dto;
     }
 }
