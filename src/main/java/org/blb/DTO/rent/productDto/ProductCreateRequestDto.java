@@ -18,6 +18,10 @@ import org.blb.DTO.rent.categoryDto.CategoryCreateRequestDto;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductCreateRequestDto {
+
+    @Schema(description = "Product image in base64 format")
+    private String imageUrl;
+
     @NotEmpty(message = "Product name cannot be empty")
     @NotBlank(message = "Product name must be not blank.")
     @Pattern(regexp = "^[A-Za-z0-9 ]+$", message = "Product name can contain only latin characters, digits, and spaces.")

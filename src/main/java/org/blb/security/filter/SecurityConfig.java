@@ -46,6 +46,7 @@ public class SecurityConfig {
                         .requestMatchers("/news/comment").hasAnyRole("USER","ADMIN")
                         .requestMatchers("/news/reaction").hasAnyRole("USER","ADMIN")
                         .requestMatchers("/rent/**").hasAnyRole("USER","ADMIN")
+                        .requestMatchers("/rents/my/**").authenticated()
                         .anyRequest().permitAll())
 
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
