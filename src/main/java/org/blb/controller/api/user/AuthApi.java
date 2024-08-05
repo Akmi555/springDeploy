@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RequestMapping("/user")
-//@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173")
 public interface AuthApi {
     @Operation(summary = "User authentication", description = "The operation is available to everyone, method returned a token of user")
     @ApiResponses( value = {

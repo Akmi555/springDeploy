@@ -11,7 +11,7 @@ import lombok.Data;
 public class UserNewDTO {
     @NotBlank
     @NotNull
-    @Size(min = 3, max = 15)
+    @Size(min = 3, max = 25)
     @Schema(description = "Name of the user", example = "Jack")
     private String name;
     @NotNull
