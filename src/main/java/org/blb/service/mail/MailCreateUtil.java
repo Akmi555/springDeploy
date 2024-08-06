@@ -19,9 +19,10 @@ public class MailCreateUtil {
 
     private final Configuration freemakerConfiguration;
 
-    public String createConfirmationMail(String name,  String link) {
+    public String createConfirmationMail(String name,  String link, Boolean registration) {
         try{
-            Template template = freemakerConfiguration.getTemplate("confirm_registration_mail.ftlh");
+            Template template = freemakerConfiguration.
+                    getTemplate(registration? "confirm_registration_mail.ftlh":"confirm_mail.ftlh");
             Map<Object,Object> model = new HashMap<>();
             model.put("name", name);
             model.put("link", link);

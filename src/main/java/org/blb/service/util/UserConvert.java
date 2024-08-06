@@ -19,6 +19,6 @@ public class UserConvert {
     public User fromIdDTOtoUser(UserWithIdDTO user, Role role, State state) {
         return   new User(user.getId(), user.getName(),
                 user.getPassword(),
-                user.getEmail(), role, state,"");
+                user.getEmail(), role, state,"","");
     }
 }

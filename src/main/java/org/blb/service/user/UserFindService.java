@@ -6,11 +6,13 @@ import org.blb.DTO.user.UsersRolesDTO;
 import org.blb.exeption.AlreadyExistException;
 import org.blb.exeption.NotFoundException;
 
+import org.blb.exeption.RestException;
 import org.blb.models.user.User;
 import org.blb.repository.user.RoleRepository;
 import org.blb.repository.user.UserRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -49,6 +51,11 @@ public class UserFindService {
         if(repository.findUserByEmail(Email).isPresent()){
             throw new AlreadyExistException( "User with Email : " + Email + " has already registered");
         }
+    }
+
+    public User findUserByEmail(String Email) {
+        return repository.findUserByEmail(Email).orElseThrow(()->
+            new RestException(HttpStatus.BAD_REQUEST,"Wrong request parameters"));
     }
 
     public UsersRolesDTO getUsersStateData(){

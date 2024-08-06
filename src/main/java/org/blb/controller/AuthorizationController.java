@@ -2,6 +2,7 @@ package org.blb.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.blb.DTO.appDTO.StandardResponseDto;
+import org.blb.DTO.user.PassRecoveryDTO;
 import org.blb.DTO.user.UserNewDTO;
 import org.blb.controller.api.user.AuthApi;
 import org.blb.security.dto.AuthRequest;
@@ -32,6 +33,18 @@ public class AuthorizationController implements AuthApi {
     @Override
     public ResponseEntity<StandardResponseDto> confirmation(String data, String code) {
        return userAuthService.confirm(data, code);
+    }
+
+    @Override
+    public ResponseEntity<StandardResponseDto> recovery(AuthRequest request) {
+        userAuthService.recoverPassword(request);
+        return new ResponseEntity<>(new StandardResponseDto("Instruction sent to your Email"), HttpStatus.OK);
+
+    }
+
+    @Override
+    public ResponseEntity<StandardResponseDto> recoveryConfirmation(PassRecoveryDTO request) {
+        return userAuthService.recoverConfirm(request.getData(), request.getCode());
     }
 
 

@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.blb.DTO.appDTO.ResponseErrors;
 import org.blb.DTO.blog.blogs.BlogsResponseDTO;
+import org.blb.DTO.user.PassRecoveryDTO;
 import org.blb.DTO.user.UserNewDTO;
 import org.blb.security.dto.AuthRequest;
 import org.blb.security.dto.AuthResponse;
@@ -61,4 +62,31 @@ public interface AuthApi {
     @GetMapping("/confirmation")
     ResponseEntity<StandardResponseDto> confirmation(@RequestParam("data") String id,
                                                @RequestParam("code") String code);
+    @Operation(summary = "User password recovery", description = "The operation is available to everyone")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "200", description ="Sending info to user Email",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = "{\"message\": \"Instruction sent to your Email\"}"))),
+            @ApiResponse(responseCode = "404", description = "Wrong request data",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = "{\"message\": \"Wrong request data\"}")))
+    })
+
+    @PutMapping("/recover")
+    ResponseEntity<StandardResponseDto> recovery(@RequestBody @Valid AuthRequest request);
+
+    @Operation(summary = "New user password confirmation", description = "The operation is available to everyone.")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "200", description ="Confirmation completed",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = "{\"message\": \"Password recovered successfully\"}"))),
+            @ApiResponse(responseCode = "400", description = "Confirmation failed",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = "{\"message\": \"Invalid confirmation code\"}"))),
+            @ApiResponse(responseCode = "404", description = "Confirmation failed",
+                    content = @Content(mediaType = "application/json",
+                            examples = @ExampleObject(value = "{\"message\": \"User not found\"}")))
+    })
+    @PostMapping("/recover")
+    ResponseEntity<StandardResponseDto> recoveryConfirmation(@RequestBody @Valid PassRecoveryDTO request);
 }

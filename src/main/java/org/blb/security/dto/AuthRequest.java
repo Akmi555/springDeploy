@@ -2,6 +2,7 @@ package org.blb.security.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -13,6 +14,7 @@ public class AuthRequest {
     @Schema(description = "User`s email", example = "email@some.com")
     private String email;
     @NotNull
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#$%^&+=!,.|?><~/])(?=\\S+$).{8,}$")
     @Schema(description = "User`s password", example = "Mypass1!")
     private String password;
 }
