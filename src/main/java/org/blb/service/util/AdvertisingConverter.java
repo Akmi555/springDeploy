@@ -50,7 +50,9 @@ public class AdvertisingConverter {
                 advertising.getAdvertiserPhone(),
                 advertising.getDiscount(),
                 advertising.getCreateData(),
-                advertising.getEndData()
+                advertising.getEndData(),
+                advertising.getAdvertisingCounter(),
+                advertising.getDescriptionOfTheCoupon()
 
         );
 

@@ -9,10 +9,7 @@ import jakarta.validation.Valid;
 import org.blb.DTO.advertisingDto.AdvertisingRequestDto;
 import org.blb.DTO.advertisingDto.AdvertisingResponseDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/admin/advertising")
@@ -26,6 +23,6 @@ public interface AddAdvertising {
                     content = @Content(mediaType = "application/json",
                             examples = @ExampleObject(value = "{\"message\": \"Advertising not found\"}")))
     })
-    @PutMapping()
+    @PostMapping("/add")
     ResponseEntity<AdvertisingResponseDto> addAdvertising(@RequestBody @Valid AdvertisingRequestDto dto);
 }

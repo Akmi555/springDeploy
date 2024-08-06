@@ -25,6 +25,6 @@ public interface DeleteAdvertising {
                     content = @Content(mediaType = "application/json",
                             examples = @ExampleObject(value = "{\"message\": \"Advertising not found\"}")))
     })
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     ResponseEntity<StandardResponseDto> deleteAdvertising(@PathVariable Long id);
 }

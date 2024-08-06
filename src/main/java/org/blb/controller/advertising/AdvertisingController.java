@@ -1,5 +1,6 @@
 package org.blb.controller.advertising;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.blb.DTO.advertisingDto.AdditionalResponseDto;
 import org.blb.DTO.advertisingDto.AdvertisingRequestDto;
@@ -72,47 +73,45 @@ import java.util.List;
 
 
 @RestController
-
 @RequiredArgsConstructor
 public class AdvertisingController implements AdvertisingApi, DeleteAdvertising, AddAdvertising {
-
     private final CreateAdvertisingService createAdvertisingService;
     private final DeleteAdvertisingService deleteAdvertisingService;
     private final FindAdvertisingService findAdvertisingService;
 
-//    @PutMapping
-    public ResponseEntity<AdvertisingResponseDto> addAdvertising(@RequestBody AdvertisingRequestDto requestDto) {
+    @Override
+    public ResponseEntity<AdvertisingResponseDto> addAdvertising(@RequestBody @Valid AdvertisingRequestDto requestDto) {
         AdvertisingResponseDto responseDto = createAdvertisingService.addAdvertising(requestDto);
         return ResponseEntity.ok(responseDto);
     }
 
-//    @DeleteMapping("/{id}")
+    @Override
     public ResponseEntity<StandardResponseDto> deleteAdvertising(@PathVariable Long id) {
         deleteAdvertisingService.deleteAdvertising(id);
         return ResponseEntity.noContent().build();
     }
 
-//    @GetMapping("/email")
-    public ResponseEntity<AdvertisingResponseDto> findByAdvertiserEmail(@RequestParam String email) {
+    @Override
+    public ResponseEntity<AdvertisingResponseDto> findByAdvertiserEmail(@PathVariable String email) {
         AdvertisingResponseDto responseDto = findAdvertisingService.findByAdvertiserEmail(email);
         return ResponseEntity.ok(responseDto);
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<ShortAdvertisingResponseDto>> findAll() {
-//        List<ShortAdvertisingResponseDto> responseDtos = findAdvertisingService.findAll();
-//        return ResponseEntity.ok(responseDtos);
-//    }
-
-//    @GetMapping("/{id}")
+    @Override
     public ResponseEntity<AdditionalResponseDto> findAdvertisingById(@PathVariable Long id) {
         AdditionalResponseDto responseDto = findAdvertisingService.findAdvertisingById(id);
         return ResponseEntity.ok(responseDto);
     }
 
-//    @GetMapping()
+    @Override
     public ResponseEntity<List<ShortAdvertisingResponseDto>> findFiveRandomAdvertisings() {
         List<ShortAdvertisingResponseDto> responseDtos = findAdvertisingService.findFiveRandomAdvertisings();
+        return ResponseEntity.ok(responseDtos);
+    }
+
+    @Override
+    public ResponseEntity<List<AdvertisingResponseDto>> findAll() {
+        List<AdvertisingResponseDto> responseDtos = findAdvertisingService.findAll();
         return ResponseEntity.ok(responseDtos);
     }
 }
