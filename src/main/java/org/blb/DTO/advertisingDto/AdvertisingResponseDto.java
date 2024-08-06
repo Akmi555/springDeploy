@@ -18,6 +18,8 @@ public class AdvertisingResponseDto {
     private String discount;
     private LocalDate createData;
     private LocalDate endData;
+    private Integer advertisingCounter;
+    private String DescriptionOfTheCoupon;
 
 
 }

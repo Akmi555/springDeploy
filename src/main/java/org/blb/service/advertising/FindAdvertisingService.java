@@ -32,20 +32,31 @@ public class FindAdvertisingService {
         }
     }
 
-    public List<ShortAdvertisingResponseDto> findAll() {
+    public List<AdvertisingResponseDto> findAll() {
         List<Advertising> advertisings = advertisingRepository.findAll();
-        List<ShortAdvertisingResponseDto> shortAdvertisingResponseDtos = advertisings.stream()
-                .map(advertisingConverter::shortAdvertisingFromEntityToDto)
+        List<AdvertisingResponseDto> advertisingResponseDtos = advertisings.stream()
+                .map(advertisingConverter::fromEntityToDto)
                 .collect(Collectors.toList());
-        return shortAdvertisingResponseDtos;
+        return advertisingResponseDtos;
     }
+
+
+//    public List<AdvertisingResponseDto>  findAll(){
+//
+//        List<Advertising> advertisings = advertisingRepository.findAll();
+//        return advertisings.stream().map(advertisingConverter::fromEntityToDto).collect(Collectors.toList());
+//
+//    }
+
+
+
 
     public AdditionalResponseDto findAdvertisingById(Long id) {
         Advertising advertising = advertisingRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Advertising with id = " + id + " not found"));
 
         if (!advertising.getId().equals(1L)) {
-            advertising.setAdvertisingCounter(advertising.getAdvertisingCounter() - 1);
+            advertising.setAdvertisingCounter(advertising.getAdvertisingCounter() -1);
             advertisingRepository.save(advertising);
         }
 
@@ -62,7 +73,7 @@ public class FindAdvertisingService {
 
         List<Advertising> filteredAdvertisings = advertisings.stream()
                 .filter(advertising -> !advertising.getId().equals(1L))
-                .limit(5)
+                .limit(6)
                 .collect(Collectors.toList());
 
         filteredAdvertisings.add(0, ourAdvertisement);

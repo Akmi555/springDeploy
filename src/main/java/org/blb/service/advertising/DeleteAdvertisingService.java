@@ -5,7 +5,6 @@ import org.blb.exeption.NotFoundException;
 import org.blb.models.advertising.Advertising;
 import org.blb.repository.advertising.AdvertisingRepository;
 import org.springframework.stereotype.Service;
-
 @Service
 @AllArgsConstructor
 public class DeleteAdvertisingService {

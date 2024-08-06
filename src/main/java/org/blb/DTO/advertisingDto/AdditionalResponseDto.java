@@ -12,8 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Schema(name = "Advertising Data", description = "Detailed information about an advertisement")
 public class AdditionalResponseDto {
-    //         private Long id;
-    //         private String description;
+
 
     @Schema(name = "title", example = "some title", description = "The title of the advertising")
     private String title;
