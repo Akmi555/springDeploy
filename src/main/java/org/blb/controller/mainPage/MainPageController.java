@@ -29,9 +29,6 @@ public class MainPageController implements MainPageAPi {
         if(ip.equals("0:0:0:0:0:0:0:1")){
             ip = "85.214.132.117";
         }
-        System.out.println();
-        System.out.println("---------");
-        System.out.println(ip);
         WeatherLatLonDTO position = outGeoLocationApi.getLatLonFromGeoLocation(ip);
         System.out.println(position);
         return ResponseEntity.ok(mainPageService.getWeather(position));
