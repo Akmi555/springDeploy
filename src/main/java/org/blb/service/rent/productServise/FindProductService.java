@@ -82,7 +82,7 @@ public class FindProductService {
         return new ProductSearchResponse(
                 dtos,
                 fieldErrors.isEmpty() ? null : new ErrorResponseDto("Errors occurred", fieldErrors),
-                productPage.getTotalElements(),
+                page,
                 productPage.getTotalPages()
         );
     }

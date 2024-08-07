@@ -40,6 +40,6 @@ public class AllProductsByUserService {
                 .map(productConverter::toDto)
                 .collect(Collectors.toList());
 
-        return new ProductSearchResponse(products, null, productPage.getTotalElements(), productPage.getTotalPages());
+        return new ProductSearchResponse(products, null, page, productPage.getTotalPages());
     }
 }
