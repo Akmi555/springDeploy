@@ -23,7 +23,7 @@ public class User {
     private Role role;
     private State state;
     private String code;
-
+    private String newPassword;
     public User(String name, String password, String email,  Role role, State state, String code) {
         this.name = name;
         this.password = password;
@@ -31,6 +31,7 @@ public class User {
         this.role = role;
         this.state = state;
         this.code = code;
+        this.newPassword = "";
     }
 
 

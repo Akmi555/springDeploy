@@ -2,6 +2,7 @@ package org.blb.service.user;
 
 import org.blb.DTO.appDTO.StandardResponseDto;
 import org.blb.exeption.RestException;
+import org.blb.security.dto.AuthRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -56,6 +57,32 @@ public class UserAuthService {
         sendEmail(newUser, codeValue);
     }
 
+    public void recoverPassword(AuthRequest request) {
+        User user = userFindService.findUserByEmail(request.getEmail());
+        user.setNewPassword(passwordEncoder.encode(request.getPassword()));
+        String codeValue = UUID.randomUUID().toString();
+        user.setCode(codeValue);
+        repository.save(user);
+        sendEmailForPasswordRecovery(user, codeValue);
+    }
+
+    public ResponseEntity<StandardResponseDto> recoverConfirm(String id, String code){
+        Long userId= decodeUserId(id);
+        User user=userFindService.findUserById(userId);
+        System.out.println();
+        System.out.println("------------------------");
+        System.out.println(user.getEmail());
+        if(code.equals(user.getCode())){
+            System.out.println("codeOK");
+            user.setCode("");
+            user.setPassword(user.getNewPassword());
+            user.setNewPassword("");
+            repository.save(user);
+            return ResponseEntity.ok(new StandardResponseDto("Password recovered successfully"));
+        }
+        return ResponseEntity.badRequest().body(new StandardResponseDto("Invalid confirmation code"));
+    }
+
 
     public AuthResponse authentication(String email, String password) {
         Authentication authentication = authenticationManager.authenticate(
@@ -79,14 +106,20 @@ public class UserAuthService {
             repository.save(user);
             return ResponseEntity.ok(new StandardResponseDto("User confirmed successfully"));
         }
-            return ResponseEntity.badRequest().body(new StandardResponseDto("Invalid confirmation code"));
+        return ResponseEntity.badRequest().body(new StandardResponseDto("Invalid confirmation code"));
     }
 
 
     private void sendEmail(User user, String code) {
         String link = "?data=" + (codeUserId(Long.toString(user.getId()))) + "&code=" + code;
-        String html = mailCreateUtil.createConfirmationMail(user.getName(), link);
+        String html = mailCreateUtil.createConfirmationMail(user.getName(), link, true);
         userMailSender.send(user.getEmail(), "Registration", html);
+    }
+
+    private void sendEmailForPasswordRecovery(User user, String code) {
+        String link = "?data=" + (codeUserId(Long.toString(user.getId()))) + "&code=" + code;
+        String html = mailCreateUtil.createConfirmationMail(user.getName(), link, false);
+        userMailSender.send(user.getEmail(), "Password Recovery", html);
     }
 
 
@@ -118,7 +151,7 @@ public class UserAuthService {
         byte[] byteArray=number.getBytes();
         StringBuilder buffer =new StringBuilder();;
         for(int i=0;i<byteArray.length;i++){
-           buffer.append((char)(byteArray[i]+49));
+            buffer.append((char)(byteArray[i]+49));
         }
         return buffer.toString();
     }
