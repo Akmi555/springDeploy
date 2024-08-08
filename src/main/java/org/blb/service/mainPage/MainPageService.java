@@ -13,7 +13,10 @@ import org.blb.models.news.NewsDataEntity;
 import org.blb.repository.news.NewsDataRepository;
 import org.blb.repository.rent.ProductRepository;
 import org.blb.service.blog.BlogFindService;
+import org.blb.service.weather.OutGeoLocationApi;
 import org.blb.service.weather.OutWeatherApi;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -28,7 +31,7 @@ public class MainPageService {
     private final BlogFindService blogFindService;
     private final ProductRepository productRepository;
     private final OutWeatherApi outWeatherApi;
-
+    private static Logger log = LoggerFactory.getLogger(MainPageService.class);
     public MpResponseDTO getData() {
         List<NewsDataEntity> news =
                 newsDataRepository
@@ -62,7 +65,8 @@ public class MainPageService {
     }
 
     public MpWeatherDTO getWeather(WeatherLatLonDTO position) {
-       return outWeatherApi.receivedFromWeatherMapApi(position);
+       log.info("GEO position - "+ position.getCity());
+        return outWeatherApi.receivedFromWeatherMapApi(position);
 //        return new MpWeatherDTO("Berlin", "16", "18", "15", "Überwiegend bewölkt",
 //                "6.71", "93", "10d");
     }

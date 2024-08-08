@@ -30,7 +30,7 @@ public class MainPageController implements MainPageAPi {
             ip = "85.214.132.117";
         }
         WeatherLatLonDTO position = outGeoLocationApi.getLatLonFromGeoLocation(ip);
-        System.out.println(position);
+
         return ResponseEntity.ok(mainPageService.getWeather(position));
     }
 }

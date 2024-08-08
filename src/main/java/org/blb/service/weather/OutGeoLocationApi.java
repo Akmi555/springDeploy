@@ -21,6 +21,8 @@ public class OutGeoLocationApi {
     private final RestTemplate restTemplate;
 
     public WeatherLatLonDTO getLatLonFromGeoLocation(String ipAddress) {
+
+        log.info("user Ip Address - "+ipAddress);
         String urlGeo = createGeoLocationUrl(ipAddress);
 
         log.info("Sending request to {}", urlGeo);
