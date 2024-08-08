@@ -25,7 +25,13 @@ public class MainPageController implements MainPageAPi {
     @Override
     public ResponseEntity<MpWeatherDTO> weather(HttpServletRequest request) {
 
+
+        String forwardedHeader = request.getHeader("X-FORWARDED-FOR");
         String ip = request.getRemoteAddr();
+        if (forwardedHeader != null) {
+            ip = forwardedHeader.split(",")[0];
+        }
+
         if(ip.equals("0:0:0:0:0:0:0:1")){
             ip = "85.214.132.117";
         }
