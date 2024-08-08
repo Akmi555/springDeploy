@@ -65,7 +65,7 @@ class AllProductsByUserServiceTest {
         ProductSearchResponse response = allProductsByUserService.findUserProducts(0);
 
         assertNotNull(response);
-        assertEquals(1, response.getTotalElements());
+        assertEquals(1, response.getTotalPages());
         assertEquals(1, response.getTotalPages());
         assertEquals(1, response.getProducts().size());
         assertEquals(1L, response.getProducts().get(0).getId());
