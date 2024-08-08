@@ -5,6 +5,7 @@ import org.blb.DTO.newsComment.NewsCommentResponseDTO;
 import org.blb.exeption.RestException;
 import org.blb.models.news.NewsComment;
 import org.blb.repository.news.NewsCommentRepository;
+import org.blb.service.news.FindNewsDataService;
 import org.blb.service.util.newsCommentMapping.NewsCommentConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +18,10 @@ import java.util.List;
 public class FindNewsCommentService {
     private final NewsCommentRepository newsCommentRepository;
     private final NewsCommentConverter newsCommentConverter;
+    private final FindNewsDataService findNewsDataService;
 
     public ResponseEntity<List<NewsCommentResponseDTO>> findAll() {
         List<NewsComment> allNewsComments = newsCommentRepository.findAll();
-        if (allNewsComments.isEmpty()) {
-            throw new RestException(HttpStatus.NOT_FOUND, "Comments are not found");
-        }
         List<NewsCommentResponseDTO> DTOs = allNewsComments.stream()
                 .map(newsCommentConverter::toDto)
                 .toList();
@@ -38,10 +37,8 @@ public class FindNewsCommentService {
     }
 
     public ResponseEntity<List<NewsCommentResponseDTO>> findAllCommentsByNewsId(Long newsId) {
+        findNewsDataService.findNewsById(newsId);
         List<NewsComment> allCommentsForNewsId = newsCommentRepository.findAllByNewsDataEntityId(newsId);
-        if (allCommentsForNewsId.isEmpty()) {
-            throw new RestException(HttpStatus.NOT_FOUND, "Comments for news with ID = " + newsId + " are not found");
-        }
         List<NewsCommentResponseDTO> DTOs = allCommentsForNewsId.stream()
                 .map(newsCommentConverter::toDto)
                 .toList();
