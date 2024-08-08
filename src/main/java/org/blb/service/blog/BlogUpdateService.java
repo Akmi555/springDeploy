@@ -3,6 +3,7 @@ package org.blb.service.blog;
 import lombok.AllArgsConstructor;
 import org.blb.DTO.appDTO.StandardDelRequest;
 import org.blb.DTO.blog.BlogUpdateDTO;
+import org.blb.DTO.blog.blogs.IdRequestDTO;
 import org.blb.exeption.RestException;
 import org.blb.models.blog.Blog;
 import org.blb.models.region.Region;
@@ -31,6 +32,12 @@ public class BlogUpdateService {
         Blog blog = getBlogForUpdate(dto.getId());
         blogCommentService.removeByBlog(blog);
         blogRepository.deleteById(blog.getId());
+    }
+
+    public void addViews(IdRequestDTO dto) {
+        Blog blog = blogFindService.findById(dto.getId());
+        blog.setViews(blog.getViews() + 1);
+        blogRepository.save(blog);
     }
 
     public void update(BlogUpdateDTO dto) {
