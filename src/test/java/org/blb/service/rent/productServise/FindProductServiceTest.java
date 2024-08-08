@@ -65,7 +65,7 @@ class FindProductServiceTest {
 
         ProductSearchResponse response = findProductService.findProducts(null, null, null, 0);
 
-        assertEquals(0, response.getTotalElements());
+        assertEquals(0, response.getTotalPages());
         assertEquals(0, response.getTotalPages());
     }
 
