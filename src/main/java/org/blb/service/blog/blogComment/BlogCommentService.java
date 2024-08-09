@@ -43,6 +43,9 @@ public class BlogCommentService {
         if (user != comment.getUser() && user.getRole() != role){
             throw new RestException(HttpStatus.CONFLICT, "You dont have permission to dell this message");
         }
+        Blog blog = comment.getBlog();
+        blog.setComments(blog.getComments()-1);
+        blogRepository.save(blog);
         blogCommentRepository.delete(comment);
     }
     public void removeByBlog(Blog blog){
