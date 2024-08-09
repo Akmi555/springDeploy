@@ -29,12 +29,12 @@ public interface UpdateNewsCommentApi {
                                     "        {\n" +
                                     "            \"field\": \"id\",\n" +
                                     "            \"rejectedValue\": null,\n" +
-                                    "            \"message\": \"darf nicht null sein\"\n" +
+                                    "            \"message\": \"must not be null\"\n" +
                                     "        },\n" +
                                     "        {\n" +
                                     "            \"field\": \"comment\",\n" +
                                     "            \"rejectedValue\": null,\n" +
-                                    "            \"message\": \"darf nicht leer sein\"\n" +
+                                    "            \"message\": \"must not be blank\"\n" +
                                     "        }\n" +
                                     "    ]}"))),
 

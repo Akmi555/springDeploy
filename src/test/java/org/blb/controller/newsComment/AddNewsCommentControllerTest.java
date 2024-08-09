@@ -1,0 +1,184 @@
+package org.blb.controller.newsComment;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.blb.DTO.appDTO.StandardResponseDto;
+import org.blb.DTO.newsComment.NewsCommentRequestDTO;
+import org.blb.models.news.NewsDataEntity;
+import org.blb.models.region.Region;
+import org.blb.models.user.Role;
+import org.blb.models.user.State;
+import org.blb.models.user.User;
+import org.blb.repository.news.NewsDataRepository;
+import org.blb.repository.region.RegionRepository;
+import org.blb.repository.user.RoleRepository;
+import org.blb.repository.user.UserRepository;
+import org.blb.service.user.UserAuthService;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles("test")
+@TestPropertySource(locations = "classpath:application-test.properties")
+class AddNewsCommentControllerTest {
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserAuthService userAuthService;
+
+    @Autowired
+    private NewsDataRepository newsDataRepository;
+
+    @Autowired
+    private RegionRepository regionRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @BeforeEach
+    void setUp() {
+        User testUser = new User();
+        Role role = roleRepository.findByRole("USER");
+        testUser.setName("testUser");
+        testUser.setEmail("user1@gmail.com");
+        testUser.setPassword(passwordEncoder.encode("Qwerty1!"));
+        testUser.setRole(role);
+        testUser.setCode("");
+        testUser.setState(State.CONFIRMED);
+        userRepository.save(testUser);
+
+        User test2User = new User();
+        test2User.setName("testUser2");
+        test2User.setEmail("user2@gmail.com");
+        test2User.setPassword(passwordEncoder.encode("Qwerty1!"));
+        role = roleRepository.findByRole("ADMIN");
+        test2User.setRole(role);
+        test2User.setCode("");
+        test2User.setState(State.CONFIRMED);
+        userRepository.save(test2User);
+
+        Region region = regionRepository.findById(8L).get();
+        NewsDataEntity newsDataEntity = new NewsDataEntity();
+        newsDataEntity.setRegion(region);
+        newsDataEntity.setSectionName("inland");
+        newsDataEntity.setTitle("Stromausfall in Bad Homburg: Tausende Haushalte und Bahnhof betroffen");
+        newsDataEntity.setDate("2024-07-27T12:46:53.250+02:00");
+        newsDataEntity.setTitleImageSquare("https://images.tagesschau.de/image/622213a8-a3b6-46c1-a5c7-c29c0f9420ad/AAABkPPOA1o/AAABjwnlUSc/1x1-840.jpg");
+        newsDataEntity.setTitleImageWide("https://images.tagesschau.de/image/622213a8-a3b6-46c1-a5c7-c29c0f9420ad/AAABkPPOA1o/AAABjwnlNY8/16x9-960.jpg");
+        newsDataEntity.setContent("<div className=\\\"textValueNews\\\"><strong>In Bad Homburg ist in der Nacht großflächig der Strom ausgefallen. Auch benachbarte Gemeinden waren zum Teil betroffen.</strong></div> ...");
+        newsDataEntity.setLikeCount(10);
+        newsDataEntity.setDislikeCount(5);
+        newsDataEntity.setCommentsCount(1);
+        newsDataRepository.save(newsDataEntity);
+
+    }
+    @AfterEach
+    void drop() {
+        newsDataRepository.deleteAll();
+        userRepository.deleteAll();
+    }
+    @Test
+    void testAddNewsCommentWithCorrectParams() throws Exception {
+        String token = userAuthService.
+                authentication("user1@gmail.com", "Qwerty1!").getToken();
+        NewsDataEntity newsDataEntity = newsDataRepository.findAll().get(0);
+        NewsCommentRequestDTO requestDto = new NewsCommentRequestDTO("Test Comment for news with ID = " + newsDataEntity.getId(), newsDataEntity.getId());
+        StandardResponseDto responseDto = new StandardResponseDto("Comment to news with ID = "+ requestDto.getNewsId() +" added successfully");
+
+        mockMvc.perform(post("/news/comment")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto))
+                        .header("authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(responseDto)));
+
+    }
+
+    @Test
+    void testAddNewsCommentToNonExistingNews() throws Exception {
+        String token = userAuthService.authentication("user1@gmail.com", "Qwerty1!").getToken();
+
+        Long nonExistingNewsId = 11999L;
+        NewsCommentRequestDTO requestDto = new NewsCommentRequestDTO("Test Comment", nonExistingNewsId);
+
+        StandardResponseDto responseDto = new StandardResponseDto("News with ID = " + nonExistingNewsId + " not found");
+
+        mockMvc.perform(post("/news/comment")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto))
+                        .header("authorization", "Bearer " + token))
+                .andExpect(status().isNotFound())
+                .andExpect(content().json(objectMapper.writeValueAsString(responseDto)));
+    }
+
+    @Test
+    void testAddNewsCommentWithInvalidData() throws Exception {
+        String token = userAuthService.authentication("user1@gmail.com", "Qwerty1!").getToken();
+        NewsDataEntity newsDataEntity = newsDataRepository.findAll().get(0);
+
+        NewsCommentRequestDTO requestDto = new NewsCommentRequestDTO("", newsDataEntity.getId());
+
+        String expectedResponse = "{\"errors\": [" +
+                "{ \"field\": \"comment\", \"message\": \"size must be between 2 and 2147483647\"}," +
+                "{ \"field\": \"comment\", \"message\": \"must not be blank\"}" +
+                "]}";
+
+        mockMvc.perform(post("/news/comment")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto))
+                        .header("authorization", "Bearer " + token))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().json(expectedResponse));
+    }
+
+    @Test
+    void testAddNewsCommentWithoutAuth() throws Exception {
+        NewsDataEntity newsDataEntity = newsDataRepository.findAll().get(0);
+        NewsCommentRequestDTO requestDto = new NewsCommentRequestDTO("Test Comment", newsDataEntity.getId());
+
+        mockMvc.perform(post("/news/comment")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andExpect(status().isForbidden());
+
+    }
+
+    @Test
+    void testAddNewsCommentByDifferentUserWithCorrectParams() throws Exception {
+        String token = userAuthService.authentication("user2@gmail.com", "Qwerty1!").getToken();
+        NewsDataEntity newsDataEntity = newsDataRepository.findAll().get(0);
+        NewsCommentRequestDTO requestDto = new NewsCommentRequestDTO("Another Test Comment", newsDataEntity.getId());
+        StandardResponseDto responseDto = new StandardResponseDto("Comment to news with ID = "+ requestDto.getNewsId() +" added successfully");
+
+        mockMvc.perform(post("/news/comment")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto))
+                        .header("authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(responseDto)));
+    }
+}

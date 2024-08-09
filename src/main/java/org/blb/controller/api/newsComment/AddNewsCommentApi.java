@@ -32,12 +32,12 @@ public interface AddNewsCommentApi {
                                     "        {\n" +
                                     "            \"field\": \"comment\",\n" +
                                     "            \"rejectedValue\": \"\",\n" +
-                                    "            \"message\": \"darf nicht leer sein\"\n" +
+                                    "            \"message\": \"size must be between 2 and 2147483647\"\n" +
                                     "        },\n" +
                                     "        {\n" +
                                     "            \"field\": \"comment\",\n" +
                                     "            \"rejectedValue\": \"\",\n" +
-                                    "            \"message\": \"Größe muss zwischen 2 und 2147483647 sein\"\n" +
+                                    "            \"message\": \"must not be blank\"\n" +
                                     "        }\n" +
                                     "    ]}"))),
 
