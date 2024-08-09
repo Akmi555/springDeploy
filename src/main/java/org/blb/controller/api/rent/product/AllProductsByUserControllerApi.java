@@ -27,7 +27,61 @@ public interface AllProductsByUserControllerApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Products found",
                     content = @Content(mediaType = "application/json",
-                            examples = @ExampleObject(value = "{ \"products\": [...], \"error\": null }"))),
+                            examples = @ExampleObject(value = "{\n" +
+                                    "    \"products\": [\n" +
+                                    "        {\n" +
+                                    "            \"id\": 20,\n" +
+                                    "            \"imageUrl\": \"https://ifiwjdganyiodnmwtdlr.supabase.co/storage/v1/object/public/blb_rent/some_link.jpg\",\n" +
+                                    "            \"name\": \"Verkaufe Tisch\",\n" +
+                                    "            \"category\": {\n" +
+                                    "                \"name\": \"Books\"\n" +
+                                    "            },\n" +
+                                    "            \"price\": 190.0,\n" +
+                                    "            \"description\": \"A high quality Table for a good time.\",\n" +
+                                    "            \"region\": {\n" +
+                                    "                \"regionName\": \"Berlin\"\n" +
+                                    "            },\n" +
+                                    "            \"owner\": {\n" +
+                                    "                \"name\": \"currentUser\"\n" +
+                                    "            }\n" +
+                                    "        },\n" +
+                                    "        {\n" +
+                                    "            \"id\": 19,\n" +
+                                    "            \"imageUrl\": \"https://ifiwjdganyiodnmwtdlr.supabase.co/storage/v1/object/public/blb_rent/some_link.jpg\",\n" +
+                                    "            \"name\": \"Verkaufe Tisch\",\n" +
+                                    "            \"category\": {\n" +
+                                    "                \"name\": \"Electronics\"\n" +
+                                    "            },\n" +
+                                    "            \"price\": 180.0,\n" +
+                                    "            \"description\": \"A high quality Table for a good time.\",\n" +
+                                    "            \"region\": {\n" +
+                                    "                \"regionName\": \"Bayern\"\n" +
+                                    "            },\n" +
+                                    "            \"owner\": {\n" +
+                                    "                \"name\": \"currentUser\"\n" +
+                                    "            }\n" +
+                                    "        },\n" +
+                                    "        {\n" +
+                                    "            \"id\": 18,\n" +
+                                    "            \"imageUrl\": \"https://ifiwjdganyiodnmwtdlr.supabase.co/storage/v1/object/public/blb_rent/some_link.jpg\",\n" +
+                                    "            \"name\": \"Verkaufe Tisch\",\n" +
+                                    "            \"category\": {\n" +
+                                    "                \"name\": \"Others\"\n" +
+                                    "            },\n" +
+                                    "            \"price\": 170.0,\n" +
+                                    "            \"description\": \"A high quality Table for a good time.\",\n" +
+                                    "            \"region\": {\n" +
+                                    "                \"regionName\": \"Baden-Württemberg\"\n" +
+                                    "            },\n" +
+                                    "            \"owner\": {\n" +
+                                    "                \"name\": \"currentUser\"\n" +
+                                    "            }\n" +
+                                    "        }" +
+                                    "],\n" +
+                                    "    \"error\": null,\n" +
+                                    "    \"currentPage\": 0,\n" +
+                                    "    \"totalPages\": 1\n" +
+                                    "}"))),
             @ApiResponse(responseCode = "403", description = "Forbidden",
                     content = @Content(mediaType = "application/json",
                             examples = @ExampleObject(value = "{\n" +

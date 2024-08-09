@@ -31,7 +31,47 @@ public interface FindProductControllerApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Products found",
                     content = @Content(mediaType = "application/json",
-                            examples = @ExampleObject(value = "{ \"products\": [...], \"error\": null }"))),
+                            examples = @ExampleObject(value = "{\n" +
+                                    "    \"products\": [\n" +
+                                    "        {\n" +
+                                    "            \"id\": 22,\n" +
+                                    "            \"imageUrl\": null,\n" +
+                                    "            \"name\": \"Table\",\n" +
+                                    "            \"category\": {\n" +
+                                    "                \"name\": \"Others\"\n" +
+                                    "            },\n" +
+                                    "            \"price\": 20.0,\n" +
+                                    "            \"description\": \"A high quality SUP suitable for a good time.\",\n" +
+                                    "            \"region\": {\n" +
+                                    "                \"regionName\": \"Bremen\"\n" +
+                                    "            },\n" +
+                                    "            \"owner\": {\n" +
+                                    "                \"name\": \"jams008\"\n" +
+                                    "            }\n" +
+                                    "        },\n" +
+                                    "        {\n" +
+                                    "           {\n" +
+                                    "            \"id\": 1,\n" +
+                                    "            \"imageUrl\": \"https://ifiwjdganyiodnmwtdlr.supabase.co/storage/v1/object/public/blb_rent/some_link.jpg\",\n" +
+                                    "            \"name\": \"Verkaufe Tisch\",\n" +
+                                    "            \"category\": {\n" +
+                                    "                \"name\": \"Electronics\"\n" +
+                                    "            },\n" +
+                                    "            \"price\": 0.0,\n" +
+                                    "            \"description\": null,\n" +
+                                    "            \"region\": {\n" +
+                                    "                \"regionName\": \"Baden-Württemberg\"\n" +
+                                    "            },\n" +
+                                    "            \"owner\": {\n" +
+                                    "                \"name\": \"Administrator\"\n" +
+                                    "            }\n" +
+                                    "        },..." +
+                                    "],\n" +
+                                    "    \"error\": null,\n" +
+                                    "    \"currentPage\": 0,\n" +
+                                    "    \"totalPages\": 3\n" +
+                                    "}"))),
+
             @ApiResponse(responseCode = "400", description = "Validation error",
                     content = @Content(mediaType = "application/json",
                             examples = @ExampleObject(value = "{\n" +

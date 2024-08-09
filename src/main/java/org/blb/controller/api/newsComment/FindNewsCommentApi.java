@@ -21,11 +21,7 @@ public interface FindNewsCommentApi {
     @ApiResponses( value = {
             @ApiResponse(responseCode = "200", description ="Return all comments on news",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = NewsCommentResponseDTO.class))),
-
-            @ApiResponse(responseCode = "404", description = "Comments are not found",
-                    content = @Content(mediaType = "application/json",
-                            examples = @ExampleObject(value = "{\"message\": \"Comments are not found\"}")))
+                            schema = @Schema(implementation = NewsCommentResponseDTO.class)))
     })
 
     @GetMapping("/comments")
@@ -37,9 +33,9 @@ public interface FindNewsCommentApi {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = NewsCommentResponseDTO.class))),
 
-            @ApiResponse(responseCode = "404", description = "Comments for news with ID = ... are not found",
+            @ApiResponse(responseCode = "404", description = "News with ID = ... not found",
                     content = @Content(mediaType = "application/json",
-                            examples = @ExampleObject(value = "{\"message\": \"Comments for news with ID = 2 are not found\"}")))
+                            examples = @ExampleObject(value = "{\"message\": \"News with ID = 2 not found\"}")))
     })
 
     @GetMapping("/{newsId}/comments")
