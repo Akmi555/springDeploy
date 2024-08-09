@@ -58,7 +58,7 @@ public class MainPageService {
 
         List<MpRentResponse> rent = productRepository
                 .findAll(PageRequest.of(0, 6,
-                        Sort.by(Sort.Order.asc("id")))).getContent().stream()
+                        Sort.by(Sort.Order.desc("id")))).getContent().stream()
                 .map(item -> new MpRentResponse(item.getId(), item.getName(), item.getPrice(), item.getRegion().getRegionName()))
                 .toList();
         return new MpResponseDTO(innerNews, sport, world, blogs, rent);
