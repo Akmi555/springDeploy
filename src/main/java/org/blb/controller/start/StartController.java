@@ -1,6 +1,7 @@
 package org.blb.controller.start;
 
 import lombok.AllArgsConstructor;
+import org.blb.service.startTest.StartAdvertisingService;
 import org.blb.service.startTest.StartTestService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,5 +21,7 @@ public class StartController {
         startTestService.startBlog();
         return ResponseEntity.ok("ok");
     }
+
+
 
 }

@@ -25,4 +25,6 @@ public interface AddAdvertising {
     })
     @PostMapping("/add")
     ResponseEntity<AdvertisingResponseDto> addAdvertising(@RequestBody @Valid AdvertisingRequestDto dto);
+
+
 }

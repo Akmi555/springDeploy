@@ -18,6 +18,7 @@ public class Advertising {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Column(length = 700)
     private String description;
     private String advertiserName;
     private String advertiserEmail;
