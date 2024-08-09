@@ -45,10 +45,11 @@ public class StartAdvertisingService {
 //        }
 //
 
-        advertisingRepository.deleteAll();
+       // advertisingRepository.deleteAll();
 
-        entityManager.createNativeQuery("Truncate TABLE advertising ").executeUpdate();
-
+        entityManager.createNativeQuery("drop TABLE advertising ").executeUpdate();
+        entityManager.createNativeQuery("create table advertising (id bigint not null auto_increment, description_of_the_coupon varchar(255), advertiser_email varchar(255), advertiser_name varchar(255), advertiser_phone varchar(255), advertising_counter integer, create_data date, description varchar(700), discount varchar(255), end_data date, title varchar(255), primary key (id))").executeUpdate();
+//create table advertising (id bigint not null auto_increment, description_of_the_coupon varchar(255), advertiser_email varchar(255), advertiser_name varchar(255), advertiser_phone varchar(255), advertising_counter integer, create_data date, description varchar(700), discount varchar(255), end_data date, title varchar(255), primary key (id))
         // Реклама 1
         Advertising advertising1 = new Advertising();
         advertising1.setId(1L);
