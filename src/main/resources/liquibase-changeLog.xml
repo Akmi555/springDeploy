@@ -171,10 +171,11 @@
             <column name="region_name" value="Deutschland"/>
         </insert>
     </changeSet>
+
     <!-- Create advertising table -->
     <changeSet id="create-table-advertising" author="vitalii-chaplygin">
         <createTable tableName="advertising">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="title" type="VARCHAR(255)">
@@ -195,10 +196,10 @@
             <column name="discount" type="VARCHAR(10)">
                 <constraints nullable="false"/>
             </column>
-            <column name="create_date" type="DATE">
+            <column name="create_data" type="DATE">
                 <constraints nullable="false"/>
             </column>
-            <column name="end_date" type="DATE">
+            <column name="end_data" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column name="advertising_counter" type="INTEGER">
@@ -212,17 +213,18 @@
 
     <changeSet id="insert-initial-advertising" author="vitalii-chaplygin">
         <insert tableName="advertising">
-            <column name="title" value="Our Main Advertisement"/>
-            <column name="description" value="advertisement content"/>
-            <column name="advertiser_name" value="Our Company"/>
-            <column name="advertiser_email" value="advertising@gmail.com"/>
+            <column name="title" value="Entwicklung von Websites"/>
+            <column name="description" value="Unser Team entwickelt Websites jeglicher Komplexität, wir bieten einen vollständigen Entwicklungszyklus vom Design über die Implementierung bis hin zum Support, wir erstellen Websites, die auf allen Geräten - vom Mobiltelefon bis zum Desktop-Computer - perfekt dargestellt werden, wir optimieren Websites für eine hohe Ladegeschwindigkeit und einen reibungslosen Betrieb auch bei hoher Belastung. Wir bieten einen 24/7-Support und eine Überwachung der Website-Performance an. Wir bieten flexible Kooperationsbedingungen, einschließlich verschiedener Zahlungsoptionen und Preismodelle, die an Ihr Budget und Ihre Anforderungen angepasst werden können."/>
+            <column name="advertiser_name" value="Digitales Team"/>
+            <column name="advertiser_email" value="DigitalesTeam@gmail.com"/>
             <column name="advertiser_phone" value="+1111111111111"/>
             <column name="discount" value="10%"/>
-            <column name="create_date" value="2024-07-28"/>
-            <column name="end_date" value="2024-12-31"/>
+            <column name="create_data" value="2024-08-09"/>
+            <column name="end_data" value="2050-12-31"/>
             <column name="advertising_counter" value="100"/>
-            <column name="description_of_the_coupon" value="description text"/>
+            <column name="description_of_the_coupon" value="Wenn Sie sich für unser Team entscheiden, erhalten Sie einen Rabatt auf die Website-Entwicklung"/>
         </insert>
+
     </changeSet>
 
     <!-- Create news section table -->
