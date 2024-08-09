@@ -67,7 +67,7 @@ public class StartAdvertisingService {
 
 // Реклама 2
         Advertising advertising2 = new Advertising();
-        advertising2.setTitle("Unsere Firma 2");
+        advertising2.setTitle("Firma 2");
         advertising2.setDescription("Beschreibung für die zweite Werbung.");
         advertising2.setAdvertiserName("Werbefirma 2");
         advertising2.setAdvertiserEmail("werbung2@GMAIL.com");
@@ -81,7 +81,7 @@ public class StartAdvertisingService {
 
 // Реклама 3
         Advertising advertising3 = new Advertising();
-        advertising3.setTitle("Unsere Firma 3");
+        advertising3.setTitle("Firma 3");
         advertising3.setDescription("Dies ist eine Beschreibung für die dritte Werbung.");
         advertising3.setAdvertiserName("Werbefirma 3");
         advertising3.setAdvertiserEmail("werbung3@GMAIL.com");
@@ -95,7 +95,7 @@ public class StartAdvertisingService {
 
 // Реклама 4
         Advertising advertising4 = new Advertising();
-        advertising4.setTitle("Unsere Firma 4");
+        advertising4.setTitle("Firma 4");
         advertising4.setDescription("Hier ist die vierte Werbung für Ihr Unternehmen.");
         advertising4.setAdvertiserName("Werbefirma 4");
         advertising4.setAdvertiserEmail("werbung4@GMAIL.com");
@@ -109,7 +109,7 @@ public class StartAdvertisingService {
 
 // Реклама 5
         Advertising advertising5 = new Advertising();
-        advertising5.setTitle("Unsere Firma 5");
+        advertising5.setTitle("Firma 5");
         advertising5.setDescription("Fünfte Werbung für die neuen Angebote.");
         advertising5.setAdvertiserName("Werbefirma 5");
         advertising5.setAdvertiserEmail("werbung5@GMAIL.com");
@@ -123,7 +123,7 @@ public class StartAdvertisingService {
 
 // Реклама 6
         Advertising advertising6 = new Advertising();
-        advertising6.setTitle("Unsere Firma 6");
+        advertising6.setTitle("Firma 6");
         advertising6.setDescription("Einmalige Gelegenheit für die sechste Werbung.");
         advertising6.setAdvertiserName("Werbefirma 6");
         advertising6.setAdvertiserEmail("werbung6@GMAIL.com");
@@ -137,7 +137,7 @@ public class StartAdvertisingService {
 
 // Реклама 7
         Advertising advertising7 = new Advertising();
-        advertising7.setTitle("Unsere Firma 7");
+        advertising7.setTitle("Firma 7");
         advertising7.setDescription("Beschreibung für die siebte Werbung.");
         advertising7.setAdvertiserName("Werbefirma 7");
         advertising7.setAdvertiserEmail("werbung7@GMAIL.com");
@@ -151,7 +151,7 @@ public class StartAdvertisingService {
 
 // Реклама 8
         Advertising advertising8 = new Advertising();
-        advertising8.setTitle("Unsere Firma 8");
+        advertising8.setTitle("Firma 8");
         advertising8.setDescription("Achte Werbung für die Saison.");
         advertising8.setAdvertiserName("Werbefirma 8");
         advertising8.setAdvertiserEmail("werbung8@GMAIL.com");
@@ -165,7 +165,7 @@ public class StartAdvertisingService {
 
 // Реклама 9
         Advertising advertising9 = new Advertising();
-        advertising9.setTitle("Unsere Firma 9");
+        advertising9.setTitle("Firma 9");
         advertising9.setDescription("Werben Sie mit unserer neunten Anzeige.");
         advertising9.setAdvertiserName("Werbefirma 9");
         advertising9.setAdvertiserEmail("werbung9@GMAIL.com");
@@ -179,7 +179,7 @@ public class StartAdvertisingService {
 
 // Реклама 10
         Advertising advertising10 = new Advertising();
-        advertising10.setTitle("Unsere Firma 10");
+        advertising10.setTitle("Firma 10");
         advertising10.setDescription("Zehnte Werbung für Ihre Aufmerksamkeit.");
         advertising10.setAdvertiserName("Werbefirma 10");
         advertising10.setAdvertiserEmail("werbung10@GMAIL.com");
