@@ -47,7 +47,7 @@ public class StartAdvertisingService {
 
         advertisingRepository.deleteAll();
 
-        entityManager.createNativeQuery("ALTER TABLE advertising AUTO_INCREMENT = 1").executeUpdate();
+        entityManager.createNativeQuery("Truncate TABLE advertising ").executeUpdate();
 
         // Реклама 1
         Advertising advertising1 = new Advertising();
