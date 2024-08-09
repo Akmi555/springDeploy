@@ -172,60 +172,7 @@
         </insert>
     </changeSet>
 
-    <!-- Create advertising table -->
-    <changeSet id="create-table-advertising" author="vitalii-chaplygin">
-        <createTable tableName="advertising">
-            <column name="id" type="BIGSERIAL">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="title" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="description" type="TEXT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="advertiser_name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="advertiser_email" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="advertiser_phone" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="discount" type="VARCHAR(10)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="create_data" type="DATE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="end_data" type="DATE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="advertising_counter" type="INTEGER">
-                <constraints nullable="false"/>
-            </column>
-            <column name="description_of_the_coupon" type="TEXT">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
 
-    <changeSet id="insert-initial-advertising" author="vitalii-chaplygin">
-        <insert tableName="advertising">
-            <column name="title" value="Entwicklung von Websites"/>
-            <column name="description" value="Unser Team entwickelt Websites jeglicher Komplexität, wir bieten einen vollständigen Entwicklungszyklus vom Design über die Implementierung bis hin zum Support, wir erstellen Websites, die auf allen Geräten - vom Mobiltelefon bis zum Desktop-Computer - perfekt dargestellt werden, wir optimieren Websites für eine hohe Ladegeschwindigkeit und einen reibungslosen Betrieb auch bei hoher Belastung. Wir bieten einen 24/7-Support und eine Überwachung der Website-Performance an. Wir bieten flexible Kooperationsbedingungen, einschließlich verschiedener Zahlungsoptionen und Preismodelle, die an Ihr Budget und Ihre Anforderungen angepasst werden können."/>
-            <column name="advertiser_name" value="Digitales Team"/>
-            <column name="advertiser_email" value="DigitalesTeam@gmail.com"/>
-            <column name="advertiser_phone" value="+1111111111111"/>
-            <column name="discount" value="10%"/>
-            <column name="create_data" value="2024-08-09"/>
-            <column name="end_data" value="2050-12-31"/>
-            <column name="advertising_counter" value="100"/>
-            <column name="description_of_the_coupon" value="Wenn Sie sich für unser Team entscheiden, erhalten Sie einen Rabatt auf die Website-Entwicklung"/>
-        </insert>
-
-    </changeSet>
 
     <!-- Create news section table -->
     <changeSet id="create-table-section" author="EkaterinaB">
