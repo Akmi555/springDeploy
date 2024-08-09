@@ -70,7 +70,7 @@ public interface AdvertisingApi {
     @GetMapping("/findAll")
     ResponseEntity<List<AdvertisingResponseDto>> findAll();
 
-    @GetMapping("/createadvertising")
+    @GetMapping("/createadvertisings")
        @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<String> startAdvertisements() ;
 }
