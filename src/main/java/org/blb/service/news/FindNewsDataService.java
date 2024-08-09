@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class FindNewsDataService {
+public class  FindNewsDataService {
 
     private final NewsDataRepository newsDataRepository;
     private final NewsDataConverter newsDataConverter;
