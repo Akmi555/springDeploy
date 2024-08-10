@@ -13,6 +13,10 @@ public class DeleteNewsDataService {
     private final NewsDataRepository newsDataRepository;
 
     public StandardResponseDto deleteNewsDataById(Long newsId) {
+        if (newsId == null || newsId <= 0) {
+            throw new RestException(HttpStatus.BAD_REQUEST, "Invalid ID: " + newsId);
+        }
+
         if (newsDataRepository.existsById(newsId)) {
             newsDataRepository.deleteById(newsId);
             return new StandardResponseDto("News with ID = " + newsId + " deleted successfully");

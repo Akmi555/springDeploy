@@ -115,4 +115,12 @@ public class GlobalExceptionHandler {
                             .build());
         }
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorResponseDto> handleRuntimeException(RuntimeException exception) {
+        ErrorResponseDto errorResponse = ErrorResponseDto.builder()
+                .message("An unexpected error occurred: " + exception.getMessage())
+                .build();
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

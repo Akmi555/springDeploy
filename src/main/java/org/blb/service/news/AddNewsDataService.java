@@ -23,19 +23,25 @@ public class AddNewsDataService {
 
     @Transactional
     public StandardResponseDto saveNewsFromFetchApi() {
-        Map<String, FetchNewsDataDTO> newsFromFetch = fetchNewsApi.fetchDataFromApi();
-        Optional<String> lastDateOpt = newsDataRepository.findLastDate();
+        try{
+            Map<String, FetchNewsDataDTO> newsFromFetch = fetchNewsApi.fetchDataFromApi();
+            Optional<String> lastDateOpt = newsDataRepository.findLastDate();
 
-        String lastDate = lastDateOpt.orElse("0000-00-00T00:00:00");
+            String lastDate = lastDateOpt.orElse("0000-00-00T00:00:00");
 
-        for (FetchNewsDataDTO fetchNewsDataDTO : newsFromFetch.values()) {
-            String newsDate = fetchNewsDataDTO.getDate();
+            for (FetchNewsDataDTO fetchNewsDataDTO : newsFromFetch.values()) {
+                String newsDate = fetchNewsDataDTO.getDate();
 
-            if (newsDate.compareTo(lastDate) > 0) {
-                NewsDataEntity newsDataEntity = newsDataConverter.fromFetchApiToEntity(fetchNewsDataDTO);
-                newsDataRepository.save(newsDataEntity);
+                if (newsDate != null && newsDate.compareTo(lastDate) > 0) {
+                    NewsDataEntity newsDataEntity = newsDataConverter.fromFetchApiToEntity(fetchNewsDataDTO);
+                    newsDataRepository.save(newsDataEntity);
+                }
             }
+            return new StandardResponseDto("All news loaded successfully");
+        } catch (RestException e) {
+            return new StandardResponseDto("Failed to fetch news content from details URL");
+        } catch (Exception e) {
+            return new StandardResponseDto("An unexpected error occurred");
         }
-        return new StandardResponseDto("All news loaded successfully");
     }
 }

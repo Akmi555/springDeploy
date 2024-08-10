@@ -54,7 +54,7 @@ public class OutGeoLocationApi {
         }
     }
 
-    private String createGeoLocationUrl(String ipAddress) {
+    String createGeoLocationUrl(String ipAddress) {
         return UriComponentsBuilder.fromHttpUrl("https://api.ip2location.io")
                 .queryParam("key", System.getenv("GEOAPI"))
                 .queryParam("ip", ipAddress)
