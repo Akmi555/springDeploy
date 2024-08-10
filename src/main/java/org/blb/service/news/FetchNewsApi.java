@@ -50,6 +50,10 @@ public class FetchNewsApi {
             throw new RestException(HttpStatus.INTERNAL_SERVER_ERROR, "Error processing JSON response: " + e.getMessage());
         }
 
+        if (!jsonResponse.has("news")) {
+            throw new RestException(HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected JSON format: missing 'news' field");
+        }
+
         JsonNode newsArray = jsonResponse.path("news");
         for (JsonNode item : newsArray) {
 
@@ -120,7 +124,7 @@ public class FetchNewsApi {
         return savedNews;
     }
 
-    private String fetchContentFromDetailsUrl(String detailsUrl) {
+    String fetchContentFromDetailsUrl(String detailsUrl) {
         String json2Response = restTemplate.getForObject(detailsUrl, String.class);
         if (json2Response == null) {
             throw new RestException(HttpStatus.INTERNAL_SERVER_ERROR, "Error fetching data from details URL: " + detailsUrl);

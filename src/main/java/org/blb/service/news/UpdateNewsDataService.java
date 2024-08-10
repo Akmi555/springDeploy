@@ -125,7 +125,10 @@ public class UpdateNewsDataService {
     }
 
     public void reduceCommentsCount(NewsDataEntity newsData) {
-        newsData.setCommentsCount(newsData.getCommentsCount() - 1);
+        int currentCount = newsData.getCommentsCount();
+        if (currentCount > 0) {
+            newsData.setCommentsCount(currentCount - 1);
+        }
         newsDataRepository.save(newsData);
     }
 }
