@@ -44,7 +44,7 @@ public class TestController {
     public ResponseEntity<String> test(){
         teamRepository.deleteAll();
         teamRepository.save(new Team("Yevgen Filepchenko", "Team lead / Fullstack",
-                "Main page, Authorization/Registration, Blogs","https://www.lerned.top/imj/kurses/Yevgen_Filipchenko.jpg",""));
+                "Main page, Authorization/Registration, Blogs","https://www.lerned.top/imj/kurses/YevgenFilipchenko.jpg",""));
         teamRepository.save(new Team("Max Openkin", "Frontend",
                 "Blogs","https://www.lerned.top/imj/kurses/Max_Openkin.jpg",""));
         teamRepository.save(new Team("Ekaterina Bolvakina", "Backend",
