@@ -50,7 +50,6 @@ public interface FindProductControllerApi {
                                     "            }\n" +
                                     "        },\n" +
                                     "        {\n" +
-                                    "           {\n" +
                                     "            \"id\": 1,\n" +
                                     "            \"imageUrl\": \"https://ifiwjdganyiodnmwtdlr.supabase.co/storage/v1/object/public/blb_rent/some_link.jpg\",\n" +
                                     "            \"name\": \"Verkaufe Tisch\",\n" +
@@ -65,13 +64,12 @@ public interface FindProductControllerApi {
                                     "            \"owner\": {\n" +
                                     "                \"name\": \"Administrator\"\n" +
                                     "            }\n" +
-                                    "        },..." +
-                                    "],\n" +
+                                    "        }\n" +
+                                    "    ],\n" +
                                     "    \"error\": null,\n" +
                                     "    \"currentPage\": 0,\n" +
                                     "    \"totalPages\": 3\n" +
                                     "}"))),
-
             @ApiResponse(responseCode = "400", description = "Validation error",
                     content = @Content(mediaType = "application/json",
                             examples = @ExampleObject(value = "{\n" +

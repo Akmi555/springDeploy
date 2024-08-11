@@ -72,7 +72,7 @@ public class FindProductService {
                 .map(productConverter::toDto)
                 .collect(Collectors.toList());
 
-        // Если список продуктов пуст, добавить сообщение об ошибке
+        // If the product list is empty, add an error message
         if (dtos.isEmpty()) {
             fieldErrors.add(new FieldErrorDto("products", "No products found for the given criteria"));
         }
