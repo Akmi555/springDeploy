@@ -22,7 +22,7 @@ public class AddProductController implements AddProductControllerApi {
     private final ObjectMapper objectMapper;
 
 
-    // Method for adding a product with an image
+  //Method for adding a product with an image
     @PostMapping(consumes = "multipart/form-data")
     public ResponseEntity<?> addNewProduct(
             @RequestPart("product") String productJson,

@@ -4,7 +4,6 @@ import org.blb.DTO.appDTO.OneMessageDTO;
 import org.blb.DTO.region.RegionJustWithNameDto;
 import org.blb.DTO.rent.categoryDto.CategoryCreateRequestDto;
 import org.blb.DTO.rent.productDto.ProductCreateRequestDto;
-import org.blb.DTO.validationErrorDto.ValidationErrorDto;
 import org.blb.DTO.validationErrorDto.ValidationErrorsDto;
 import org.blb.models.region.Region;
 import org.blb.models.rent.Category;
