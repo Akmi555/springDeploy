@@ -42,24 +42,25 @@ public class TestController {
     @GetMapping("/test")
     @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<String> test(){
+        teamRepository.deleteAll();
         teamRepository.save(new Team("Yevgen Filepchenko", "Team lead / Fullstack",
                 "Main page, Authorization/Registration, Blogs","https://www.lerned.top/imj/kurses/Yevgen_Filipchenko.jpg",""));
         teamRepository.save(new Team("Max Openkin", "Frontend",
-                "Blogs","",""));
+                "Blogs","https://www.lerned.top/imj/kurses/Max_Openkin.jpg",""));
         teamRepository.save(new Team("Ekaterina Bolvakina", "Backend",
-                "News, About, Weather","",""));
+                "News, Contacts, Weather","https://www.lerned.top/imj/kurses/Ekaterina_Bolvakina.jpg",""));
         teamRepository.save(new Team("Maria Romaniuk", "Frontend",
-                "News, About","",""));
+                "News, Contacts","https://www.lerned.top/imj/kurses/Maria_Romaniuk.jpg",""));
         teamRepository.save(new Team("Alina Klochai", "Backend",
-                "Advertisement","",""));
+                "Advertisement","https://www.lerned.top/imj/kurses/Alina_Klochai.jpg",""));
         teamRepository.save(new Team("Anna Christiansen", "Frontend",
-                "Advertisement, Autorization/Registration","",""));
+                "Advertisement, Autorization/Registration","https://www.lerned.top/imj/kurses/Anna_Christiansen.jpg",""));
         teamRepository.save(new Team("Vatalii Chaplygin", "Backend",
-                "Winnings","",""));
+                "Winnings","https://www.lerned.top/imj/kurses/Vatalii_Chaplygin.jpg",""));
         teamRepository.save(new Team("Viktor Tarlovsky", "Frontend",
-                "Winnings","",""));
+                "Winnings","https://www.lerned.top/imj/kurses/Viktor_Tarlovsky.jpg",""));
         teamRepository.save(new Team("Olena Khvostykova", "Frontend",
-                "Admin panel","",""));
+                "Admin panel","https://www.lerned.top/imj/kurses/Olena_Khvostykova.jpg",""));
 
         return ResponseEntity.ok("ok");
     }
