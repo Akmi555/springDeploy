@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.UUID;
 
@@ -22,15 +23,30 @@ public class SupabaseService {
     public String uploadImage(MultipartFile image) throws IOException {
         String originalFileName = image.getOriginalFilename();
         String uniqueFileName = UUID.randomUUID().toString() + "_" + originalFileName;
+        String supabaseUrl = supabaseConfig.getSupabaseUrl();
+
+        // Check valid URL
+        if (!supabaseUrl.startsWith("http://") && !supabaseUrl.startsWith("https://")) {
+            throw new MalformedURLException("Supabase URL must start with http:// or https://");
+        }
+
+        // Check if the file is an image
+        String contentType = image.getContentType();
+        if (contentType == null || !contentType.startsWith("image/")) {
+            throw new IOException("File type not allowed. Only image files are allowed.");
+        }
+
         String endpoint = String.format("%s/storage/v1/object/%s/%s",
-                supabaseConfig.getSupabaseUrl(), supabaseConfig.getBucketName(), uniqueFileName);
+                supabaseUrl, supabaseConfig.getBucketName(), uniqueFileName);
+
+        System.out.println("Endpoint: " + endpoint);
 
         URL url = new URL(endpoint);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Authorization", "Bearer " + supabaseConfig.getSupabaseServiceRoleSecret());
-        connection.setRequestProperty("Content-Type", image.getContentType());
+        connection.setRequestProperty("Content-Type", contentType);
 
         try (InputStream inputStream = image.getInputStream();
              OutputStream outputStream = connection.getOutputStream()) {
