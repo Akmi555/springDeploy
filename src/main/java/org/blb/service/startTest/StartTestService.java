@@ -40,6 +40,8 @@ public class StartTestService {
 
     public void startBlog() {
 
+        productRepository.deleteAll();
+
         Role roleUser = roleRepository.findByRole("USER");
 
         User user2 = new User();
@@ -69,32 +71,42 @@ public class StartTestService {
             } else {
                 reg = i - 15;
             }
-            BlogAddRequestDTO dto = new BlogAddRequestDTO("some title N" + i, "Lorem ipsum dolor sit amet. Et deleniti dolor qui quisquam galisum quo aspernatur consequatur ut vero minima et commodi pariatur. Sed repellendus voluptatem et voluptatem vero et galisum praesentium ut voluptate nostrum quo pariatur accusantium non nesciunt omnis.\n" +
-                    "\n" +
-                    "Id placeat deleniti quo vitae dolorem vel illum quia aut sunt vero! Eos cupiditate maxime et earum impedit nam voluptas neque nam perspiciatis iusto At internos accusantium. Id odio voluptates a quam dolorem et impedit voluptate qui sapiente aliquid id voluptatem sequi! Ut illum iure sed nisi distinctio a quos autem non minima voluptas rem inventore neque.\n" +
-                    "\n" +
-                    "Qui vitae iste eos internos dolor ea ipsa temporibus hic rerum omnis et quos quasi eos quia natus sed dolores voluptas. Ut architecto galisum aut commodi laboriosam et voluptates molestias sed quis fugit. Qui deleniti eligendi est exercitationem repudiandae At sunt quibusdam sed optio ipsum et tempore animi.",
-                     (long) reg);
+        //    BlogAddRequestDTO dto = new BlogAddRequestDTO("some title N" + i, "Lorem ipsum dolor sit amet. Et deleniti dolor qui quisquam galisum quo aspernatur consequatur ut vero minima et commodi pariatur. Sed repellendus voluptatem et voluptatem vero et galisum praesentium ut voluptate nostrum quo pariatur accusantium non nesciunt omnis.\n" +
+        //            "\n" +
+        //            "Id placeat deleniti quo vitae dolorem vel illum quia aut sunt vero! Eos cupiditate maxime et earum impedit nam voluptas neque nam perspiciatis iusto At internos accusantium. Id odio voluptates a quam dolorem et impedit voluptate qui sapiente aliquid id voluptatem sequi! Ut illum iure sed nisi distinctio a quos autem non minima voluptas rem inventore neque.\n" +
+        //            "\n" +
+        //            "Qui vitae iste eos internos dolor ea ipsa temporibus hic rerum omnis et quos quasi eos quia natus sed dolores voluptas. Ut architecto galisum aut commodi laboriosam et voluptates molestias sed quis fugit. Qui deleniti eligendi est exercitationem repudiandae At sunt quibusdam sed optio ipsum et tempore animi.",
+        //             (long) reg);
             User user = userFindService.findUserById((long) 1);
             Region region = findRegionService.getRegionById((long) reg);
-            Blog blog = dto.dtoToBlog(user, region);
-            blogRepository.save(blog);
+        //    Blog blog = dto.dtoToBlog(user, region);
+        //    blogRepository.save(blog);
 
 
             Category category = categories.get(i % categories.size());
             System.out.println(category);
-            Product product = new Product("Verkaufe Tisch", category, (double)i*10, true);
+            double price = Math.ceil(i * 1.2);
+            Product product = new Product("Auto", category, price, true);
             System.out.println(product);
             product.setUser(user);
             product.setRegion(region);
-            product.setLink("https://ifiwjdganyiodnmwtdlr.supabase.co/storage/v1/object/public/blb_rent/62f5a3c4-0f73-47ec-ab1e-dd2f0f397476_dinner-1433494_640.jpg");
+            product.setDescription("Fast neu.");
             System.out.println(product);
 
-            if (i < 10) {
+            if (i < 7) {
+                product.setName("SUP");
                 product.setUser(user);
-            }else {
+                product.setDescription("Ein hochwertiger SUP für eine gute Zeit.");
+                product.setLink("https://ifiwjdganyiodnmwtdlr.supabase.co/storage/v1/object/public/blb_rent/f7f21230-b28f-4031-84f5-39c8f4fe02f8_photo-1590131026302-846cff2287b1.jpg");
+            }else if (i < 14) {
+                product.setName("Fahrrad");
                 product.setUser(user2);
-                product.setDescription("A high quality Table for a good time.");
+                product.setDescription("Ein hochwertiger Fahrrad für eine gute Zeit.");
+                product.setLink("https://ifiwjdganyiodnmwtdlr.supabase.co/storage/v1/object/public/blb_rent/dff32705-57fc-46bc-9f45-5ec299c5aaba_photo-1643537052325-1b28b742fba5 (1).jpg");
+            }else {
+                product.setName("Auto");
+                product.setUser(user);
+                product.setLink("https://ifiwjdganyiodnmwtdlr.supabase.co/storage/v1/object/public/blb_rent/10e6327f-3844-47e0-8c93-3a7a4a25d24d_photo-1676288176903-a68732722cce.jpg");
             }
 
             System.out.println(productRepository.save(product));
