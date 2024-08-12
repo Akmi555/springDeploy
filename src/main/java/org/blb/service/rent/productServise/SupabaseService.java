@@ -22,6 +22,7 @@ public class SupabaseService {
 
     public String uploadImage(MultipartFile image) throws IOException {
         String originalFileName = image.getOriginalFilename();
+        System.out.println(originalFileName + "-----------");
         String uniqueFileName = UUID.randomUUID().toString() + "_" + originalFileName;
         String supabaseUrl = supabaseConfig.getSupabaseUrl();
 
