@@ -49,6 +49,10 @@ public class SupabaseService {
         connection.setRequestProperty("Authorization", "Bearer " + supabaseConfig.getSupabaseServiceRoleSecret());
         connection.setRequestProperty("Content-Type", contentType);
 
+        System.out.println(supabaseConfig.getSupabaseServiceRoleSecret());
+        System.out.println(supabaseConfig.getBucketName());
+        System.out.println(supabaseUrl);
+
         try (InputStream inputStream = image.getInputStream();
              OutputStream outputStream = connection.getOutputStream()) {
 
