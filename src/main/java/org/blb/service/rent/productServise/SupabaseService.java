@@ -58,7 +58,7 @@ public class SupabaseService {
                 outputStream.write(buffer, 0, bytesRead);
             }
         }
-
+System.out.println( connection + "--------------------------------------------");
         int responseCode = connection.getResponseCode();
         if (responseCode != HttpURLConnection.HTTP_OK) {
             throw new IOException("Failed to upload image: " + connection.getResponseMessage());
