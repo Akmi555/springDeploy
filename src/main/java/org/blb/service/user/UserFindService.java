@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserFindService {
@@ -42,6 +43,12 @@ public class UserFindService {
         return repository.findUserByEmail(email)
                 .orElseThrow(()->new AccessDeniedException("Access denied"));
     }
+
+    public Optional<User> getUserFromContextIfPresent(){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return repository.findUserByEmail(email);
+    }
+
     public User findUserById(Long id) {
         return repository.findById(id)
                 .orElseThrow(()

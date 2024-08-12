@@ -34,4 +34,8 @@ public class NewsDataResponseDto {
     private int dislikeCount;
     @Schema(description = "Count of comments on the news", example = "1")
     private int commentsCount;
+    @Schema(description = "True if news was liked by current user", example = "true")
+    private Boolean like;
+    @Schema(description = "True if news was disliked by current user", example = "false")
+    private Boolean dislike;
 }
