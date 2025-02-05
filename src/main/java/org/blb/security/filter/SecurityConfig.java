@@ -34,13 +34,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())
+              http .addFilterBefore(corsFilter(), CorsFilter.class)
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/api/auth/**").permitAll()
-//                        .requestMatchers("/api/user/registration/**").permitAll()
-//                        .requestMatchers("/api/public/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/blog/**").hasAnyRole("USER","ADMIN")
                         .requestMatchers("/news/comment").hasAnyRole("USER","ADMIN")
@@ -54,16 +51,23 @@ public class SecurityConfig {
         return http.build();
     }
 
-
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*"));
-        configuration.setAllowedMethods(List.of("*"));
-        configuration.setAllowedHeaders(List.of("*"));
+    public CorsFilter corsFilter() {
+
+        CorsConfiguration corsConfig = new CorsConfiguration();
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
+
+        CorsConfiguration sendCorsConfig = new CorsConfiguration();
+        corsConfig.addAllowedOrigin("https://www.blblog.top/");
+        corsConfig.addAllowedOrigin("https://blblog.top/");
+        corsConfig.addAllowedMethod("*");
+        corsConfig.addAllowedHeader("*");
+        corsConfig.setAllowCredentials(true);
+
+
+        source.registerCorsConfiguration("/**", corsConfig); 
+
+        return new CorsFilter(source);
     }
 
     @Bean
